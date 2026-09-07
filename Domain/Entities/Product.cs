@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SaveEat.Domain.Entities;
 using SaveEat.Domain.Enums;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities;
 
-/// <summary>
-/// Mahsulot to'plami — chegirmaga qo'yilgan mahsulot paketlari.
-/// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
-/// </summary>
-[Table("product_bundles")]
-public class ProductBundle
+[Table("products")]
+public class Product
 {
     /// <summary>Bundle UUID identifikatori.</summary>
     [Key]
@@ -22,10 +17,18 @@ public class ProductBundle
     [Column("branch_id")]
     public Guid BranchId { get; set; }
 
-    /// <summary>Bundle nomi (sarlavha).</summary>
+    /// <summary>product nomi (sarlavha).</summary>
     [MaxLength(200)]
     [Column("title")]
-    public string Title { get; set; } = string.Empty;
+    public string Title { get; set; }
+
+    /// <summary>product toifasi (BagCategory).</summary>
+    [Column("category")]
+    public BagCategory Category { get; set; }
+
+    /// <summary>Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC).</summary>
+    [Column("expiration_date")]
+    public DateTime ExpirationDate { get; set; }
 
     /// <summary>Tavsif va allergenlar haqida matn.</summary>
     [Column("description")]
@@ -60,34 +63,13 @@ public class ProductBundle
     [Column("available_quantity")]
     public int AvailableQuantity { get; set; }
 
-    /// <summary>Olib ketish boshlanish vaqti (UTC).</summary>
-    [Column("pickup_start")]
-    public DateTime PickupStart { get; set; }
-
-    /// <summary>Olib ketish tugash vaqti (UTC).</summary>
-    [Column("pickup_end")]
-    public DateTime PickupEnd { get; set; }
-
-    /// <summary>to'plam holati (ACTIVE, SOLD_OUT ...).</summary>
-    [Column("status")]
-    public BagStatus Status { get; set; } = BagStatus.Active;
-
-    /// <summary>Optimistic concurrency versiyasi — raqobatni oldini olish uchun.</summary>
-    [ConcurrencyCheck]
-    [Column("version")]
-    public int Version { get; set; } = 0;
-
-    /// <summary>Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC).</summary>
-    [Column("expiration_date")]
-    public DateTime? ExpirationDate { get; set; }
+    /// <summary>product kiritgan xodim (employees.id).</summary>
+    [Column("created_by_user_id")]
+    public Guid CreatedByUserId { get; set; }
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
-
-    /// <summary>Bundleni kiritgan xodim (employees.id).</summary>
-    [Column("created_by_user_id")]
-    public Guid CreatedByUserId { get; set; }
 
     // Navigation properties
     /// <summary>Tegishli filial.</summary>
@@ -98,12 +80,13 @@ public class ProductBundle
     [ForeignKey(nameof(CreatedByUserId))]
     public Employee? CreatedByEmployee { get; set; }
 
+    /// <summary>Bundle rasmlari.</summary>
+    public ICollection<ProductBundleImage> Images { get; set; } = new List<ProductBundleImage>();
+
     /// <summary>Bundl buyurtmalari.</summary>
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 
     /// <summary>Bundl biriktirilgan xodimlar.</summary>
     public ICollection<BundleAssignee> Assignees { get; set; } = new List<BundleAssignee>();
-
-    /// <summary>Bundle rasmlari.</summary>
-    public ICollection<ProductBundleImage> Images { get; set; } = new List<ProductBundleImage>();
 }
+

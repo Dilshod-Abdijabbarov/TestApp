@@ -10,7 +10,7 @@ public class SaveEatDbContext : DbContext
     {
     }
 
-    public DbSet<Merchant> Merchants { get; set; }
+    public DbSet<Company> Merchants { get; set; }
     public DbSet<Branch> Branches { get; set; }
     public DbSet<EmployeeInvite> EmployeeInvites { get; set; }
     public DbSet<MerchantPayout> MerchantPayouts { get; set; }
@@ -29,7 +29,7 @@ public class SaveEatDbContext : DbContext
         
 
         #region  Sequential GUID  vaqtga asoslangan, ya’ni har keyingi yaratilgani oldingisidan kattaroq bo‘lgan GUID yaratadi.
-        modelBuilder.Entity<Merchant>()
+        modelBuilder.Entity<Company>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         modelBuilder.Entity<Branch>()

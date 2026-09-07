@@ -61,6 +61,6 @@ public class MerchantPayout
     // Navigation
     /// <summary>Tegishli merchant.</summary>
     [ForeignKey(nameof(MerchantId))]
-    public Merchant? Merchant { get; set; }
+    public Company? Merchant { get; set; }
 }
 

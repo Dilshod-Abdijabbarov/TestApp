@@ -21,8 +21,8 @@ public class Employee
     public Guid UserId { get; set; }
 
     /// <summary>Qaysi merchantga tegishli.</summary>
-    [Column("merchant_id")]
-    public Guid MerchantId { get; set; }
+    [Column("company_id")]
+    public Guid CompanyId { get; set; }
 
     /// <summary>Biriktirilgan filial (agar mavjud bo'lsa).</summary>
     [Column("branch_id")]
@@ -46,8 +46,8 @@ public class Employee
     public User? User { get; set; }
 
     /// <summary>Tegishli merchant.</summary>
-    [ForeignKey(nameof(MerchantId))]
-    public Merchant? Merchant { get; set; }
+    [ForeignKey(nameof(CompanyId))]
+    public Company? Company { get; set; }
 
     /// <summary>Tegishli filial (agar mavjud bo'lsa).</summary>
     [ForeignKey(nameof(BranchId))]

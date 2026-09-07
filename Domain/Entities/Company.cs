@@ -5,13 +5,12 @@ using SaveEat.Domain.Enums;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// Hamkor brend/kompaniya — savdo nuqtalarining egasi.
-/// Ushbu klass brend haqida yuridik va biznes ma'lumotlarni saqlaydi.
+/// Ushbu klass kompaniya haqida yuridik va biznes ma'lumotlarni saqlaydi.
 /// </summary>
-[Table("merchants")]
-public class Merchant
+[Table("companies")]
+public class Company
 {
-    /// <summary>Hamkorning UUID identifikatori.</summary>
+    /// <summary>Kompaniyaning UUID identifikatori.</summary>
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
@@ -19,7 +18,7 @@ public class Merchant
     /// <summary>Brend nomi (jamoat ko'rsatish uchun).</summary>
     [MaxLength(150)]
     [Column("brand_name")]
-    public string BrandName { get; set; } = string.Empty;
+    public string BrandName { get; set; }
 
     /// <summary>Yuridik nom (shartnoma maqsadlari uchun).</summary>
     [MaxLength(255)]
@@ -51,7 +50,7 @@ public class Merchant
 
     /// <summary>Platforma komissiya foizi (decimal).</summary>
     [Column("commission_rate")]
-    public decimal CommissionRate { get; set; } = 0.20m;
+    public decimal CommissionRate { get; set; } = 0.10m;
 
     /// <summary>Administrator tomonidan tasdiqlanganmi.</summary>
     [Column("is_verified")]
@@ -69,20 +68,24 @@ public class Merchant
     [Column("updated_at")]
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
-    // Navigation properties
-    /// <summary>Hamkor filiallar.</summary>
-    public ICollection<Branch> Branches { get; set; } = new List<Branch>();
+    /// <summary> Kompaniyani yaratgan user idsi.</summary>
+    [Column("created_by")]
+    public Guid CreatedBy { get; set; }
 
     /// <summary>Hamkor hamyoni.</summary>
     public MerchantWallet? Wallet { get; set; }
 
+    // Navigation properties
+    /// <summary>Hamkor filiallar.</summary>
+    public ICollection<Branch> Branches { get; set; } = new List<Branch>();
+
     /// <summary> xodimlar.</summary>
     public ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
-    /// <summary>Hamkor tomonidan yaratilgan taklif havolalari.</summary>
-    public ICollection<EmployeeInvite> EmployeeInvites { get; set; } = new List<EmployeeInvite>();
-
     /// <summary>Hamkor hisob-kitob reestri.</summary>
     public ICollection<MerchantPayout> Payouts { get; set; } = new List<MerchantPayout>();
+
+    /// <summary>Hamkor tomonidan yaratilgan taklif havolalari.</summary>
+    public ICollection<EmployeeInvite> EmployeeInvites { get; set; } = new List<EmployeeInvite>();
 }
 

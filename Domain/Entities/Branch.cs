@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// Merchantning filial (branch) ma'lumotlari: manzil, telefon, GPS va reytinglar.
+/// companiya filial (branch) ma'lumotlari: manzil, telefon, GPS va reytinglar.
 /// Har bir filial o'z pickup punktiga ega bo'ladi.
 /// </summary>
 [Table("branches")]
@@ -17,18 +17,18 @@ public class Branch
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi merchantga tegishli ekanligi.</summary>
-    [Column("merchant_id")]
-    public Guid MerchantId { get; set; }
+    /// <summary>Qaysi kompaniyaga tegishli ekanligi.</summary>
+    [Column("company_id")]
+    public Guid CompanyId { get; set; }
 
     /// <summary>Filial nomi.</summary>
-    [MaxLength(150)]
+    [MaxLength(200)]
     [Column("name")]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
 
     /// <summary>To'liq manzil matni.</summary>
     [Column("address_text")]
-    public string AddressText { get; set; } = string.Empty;
+    public string AddressText { get; set; }
 
     /// <summary>Mo'ljal yoki landmark.</summary>
     [MaxLength(255)]
@@ -64,20 +64,24 @@ public class Branch
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
+    /// <summary> filial yaratgan user idsi.</summary>
+    [Column("created_by")]
+    public Guid CreatedBy { get; set; }
+
     // Navigation properties
     /// <summary>Tegishli merchant.</summary>
-    [ForeignKey(nameof(MerchantId))]
-    public Merchant? Merchant { get; set; }
-
-    /// <summary>Filialning mahsulot to'plami.</summary>
-    public ICollection<ProductBundle> ProductBundles { get; set; } = new List<ProductBundle>();
-
-    /// <summary>Filial xodimlar.</summary>
-    public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+    [ForeignKey(nameof(CompanyId))]
+    public Company? Company { get; set; }
 
     /// <summary>Filialga tegishli buyurtmalar.</summary>
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 
+    /// <summary>Filial xodimlar.</summary>
+    public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
     /// <summary>Filialga qoldirilgan sharhlar.</summary>
     public ICollection<BranchReview> Reviews { get; set; } = new List<BranchReview>();
+
+    /// <summary>Filialning mahsulot to'plami.</summary>
+    public ICollection<ProductBundle> ProductBundles { get; set; } = new List<ProductBundle>();
 }

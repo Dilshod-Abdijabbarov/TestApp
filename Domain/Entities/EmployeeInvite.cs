@@ -17,9 +17,9 @@ public class EmployeeInvite
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi merchant taklif qiladi.</summary>
-    [Column("merchant_id")]
-    public Guid MerchantId { get; set; }
+    /// <summary>Qaysi Kompaniya taklif qiladi.</summary>
+    [Column("company_id")]
+    public Guid CompanytId { get; set; }
 
     /// <summary>Agar kerak bo'lsa, filialga bog'lash.</summary>
     [Column("branch_id")]
@@ -56,8 +56,8 @@ public class EmployeeInvite
 
     // Navigation properties
     /// <summary>Taklif qilgan merchant.</summary>
-    [ForeignKey(nameof(MerchantId))]
-    public Merchant? Merchant { get; set; }
+    [ForeignKey(nameof(CompanytId))]
+    public Company? Company { get; set; }
 
     /// <summary>Taklif qilgan filial (agar mavjud bo'lsa).</summary>
     [ForeignKey(nameof(BranchId))]
