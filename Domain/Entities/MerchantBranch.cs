@@ -14,7 +14,7 @@ public class MerchantBranch
     /// <summary>Filial UUID identifikatori.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi merchantga tegishli ekanligi.</summary>
     [Column("merchant_id")]

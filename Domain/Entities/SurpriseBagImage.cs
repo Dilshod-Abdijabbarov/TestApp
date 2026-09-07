@@ -14,7 +14,7 @@ public class SurpriseBagImage
     /// <summary>Rasm yozuvi UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi savatga tegishli.</summary>
     [Column("bag_id")]

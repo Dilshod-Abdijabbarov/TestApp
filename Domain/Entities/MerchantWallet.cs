@@ -14,7 +14,7 @@ public class MerchantWallet
     /// <summary>Hamyon UUID identifikatori.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Ushbu hamyon tegishli bo'lgan merchant ID.</summary>
     [Column("merchant_id")]

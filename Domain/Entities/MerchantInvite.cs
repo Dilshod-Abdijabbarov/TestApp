@@ -15,7 +15,7 @@ public class MerchantInvite
     /// <summary>Taklif yozuvi UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi merchant taklif qiladi.</summary>
     [Column("merchant_id")]

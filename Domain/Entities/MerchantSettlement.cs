@@ -13,7 +13,7 @@ public class MerchantSettlement
     /// <summary>Reestr yozuvi UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi merchantga to'lov tegishli.</summary>
     [Column("merchant_id")]

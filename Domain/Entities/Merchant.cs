@@ -15,7 +15,7 @@ public class Merchant
     /// <summary>Hamkorning UUID identifikatori.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Brend nomi (jamoat ko'rsatish uchun).</summary>
     [MaxLength(150)]

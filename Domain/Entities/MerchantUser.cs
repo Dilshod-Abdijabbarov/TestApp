@@ -15,7 +15,7 @@ public class MerchantUser
     /// <summary>Xodim yozuvi UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Asosiy foydalanuvchi profili identifikatori (users.id).</summary>
     [Column("user_id")]

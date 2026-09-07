@@ -14,7 +14,7 @@ public class BagAssignee
     /// <summary>Yozuv UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Biriktirilgan savat ID.</summary>
     [Column("bag_id")]

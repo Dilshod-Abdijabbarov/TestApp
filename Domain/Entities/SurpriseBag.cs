@@ -15,7 +15,7 @@ public class SurpriseBag
     /// <summary>Savat UUID identifikatori.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi filialga tegishli savat.</summary>
     [Column("branch_id")]

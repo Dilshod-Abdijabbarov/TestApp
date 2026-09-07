@@ -15,7 +15,7 @@ public class Payment
     /// <summary>To'lov UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi buyurtmaga tegishli (orders.id).</summary>
     [Column("order_id")]

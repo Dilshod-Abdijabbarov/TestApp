@@ -15,7 +15,7 @@ public class Order
     /// <summary>Buyurtma UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>O'qilishi oson buyurtma kodi.</summary>
     [MaxLength(20)]

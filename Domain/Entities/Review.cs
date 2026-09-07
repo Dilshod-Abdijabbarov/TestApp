@@ -14,7 +14,7 @@ public class Review
     /// <summary>Sharh UUID.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     /// <summary>Qaysi buyurtma uchun qoldirilgan.</summary>
     [Column("order_id")]
