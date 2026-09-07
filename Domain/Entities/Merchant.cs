@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SaveEat.Domain.Enums;
 
@@ -64,10 +63,26 @@ public class Merchant
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     /// <summary>Oxirgi tahrir vaqti (UTC).</summary>
     [Column("updated_at")]
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation properties
+    /// <summary>Hamkor filiallar.</summary>
+    public ICollection<Branch> Branches { get; set; } = new List<Branch>();
+
+    /// <summary>Hamkor hamyoni.</summary>
+    public MerchantWallet? Wallet { get; set; }
+
+    /// <summary> xodimlar.</summary>
+    public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
+    /// <summary>Hamkor tomonidan yaratilgan taklif havolalari.</summary>
+    public ICollection<EmployeeInvite> EmployeeInvites { get; set; } = new List<EmployeeInvite>();
+
+    /// <summary>Hamkor hisob-kitob reestri.</summary>
+    public ICollection<MerchantPayout> Payouts { get; set; } = new List<MerchantPayout>();
 }
 

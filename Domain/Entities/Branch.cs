@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,8 +9,8 @@ namespace SaveEat.Domain.Entities;
 /// Merchantning filial (branch) ma'lumotlari: manzil, telefon, GPS va reytinglar.
 /// Har bir filial o'z pickup punktiga ega bo'ladi.
 /// </summary>
-[Table("merchant_branches")]
-public class MerchantBranch
+[Table("branches")]
+public class Branch
 {
     /// <summary>Filial UUID identifikatori.</summary>
     [Key]
@@ -61,5 +62,22 @@ public class MerchantBranch
 
     /// <summary>Qo'shilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation properties
+    /// <summary>Tegishli merchant.</summary>
+    [ForeignKey(nameof(MerchantId))]
+    public Merchant? Merchant { get; set; }
+
+    /// <summary>Filialning mahsulot to'plami.</summary>
+    public ICollection<ProductBundle> ProductBundles { get; set; } = new List<ProductBundle>();
+
+    /// <summary>Filial xodimlar.</summary>
+    public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
+    /// <summary>Filialga tegishli buyurtmalar.</summary>
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    /// <summary>Filialga qoldirilgan sharhlar.</summary>
+    public ICollection<BranchReview> Reviews { get; set; } = new List<BranchReview>();
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SaveEat.Domain.Enums;
@@ -6,7 +6,7 @@ using SaveEat.Domain.Enums;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// To'lovlar jurnali — har bir buyurtma bo'yicha bank yoki to'lov provayderi transaksiyalarini saqlaydi.
+/// To'lovlar jurnali � har bir buyurtma bo'yicha bank yoki to'lov provayderi transaksiyalarini saqlaydi.
 /// Payload maydoni bankdan kelgan xom JSONni saqlash uchun ishlatiladi.
 /// </summary>
 [Table("payments")]
@@ -44,10 +44,14 @@ public class Payment
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     /// <summary>Oxirgi yangilanish vaqti (UTC).</summary>
     [Column("updated_at")]
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-}
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
+    // Navigation
+    /// <summary>Tegishli buyurtma.</summary>
+    [ForeignKey(nameof(OrderId))]
+    public Order? Order { get; set; }
+}

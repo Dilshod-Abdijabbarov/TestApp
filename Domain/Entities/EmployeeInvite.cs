@@ -6,11 +6,11 @@ using SaveEat.Domain.Enums;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// Merchant uchun taklif havolalari (invites) — deep-link token orqali yangi xodimlarni taklif qilish.
+/// Employee uchun taklif havolalari (invites) — deep-link token orqali yangi xodimlarni taklif qilish.
 /// Havola muddati, ishlatilganligi va rol ma'lumotlarini saqlaydi.
 /// </summary>
-[Table("merchant_invites")]
-public class MerchantInvite
+[Table("employee_invites")]
+public class EmployeeInvite
 {
     /// <summary>Taklif yozuvi UUID.</summary>
     [Key]
@@ -36,7 +36,7 @@ public class MerchantInvite
 
     /// <summary>Taklifni kim yaratdi (users.id).</summary>
     [Column("created_by_user_id")]
-    public long CreatedByUserId { get; set; }
+    public Guid CreatedByUserId { get; set; }
 
     /// <summary>Havolaning amallilik muddati (UTC).</summary>
     [Column("expires_at")]
@@ -52,6 +52,23 @@ public class MerchantInvite
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation properties
+    /// <summary>Taklif qilgan merchant.</summary>
+    [ForeignKey(nameof(MerchantId))]
+    public Merchant? Merchant { get; set; }
+
+    /// <summary>Taklif qilgan filial (agar mavjud bo'lsa).</summary>
+    [ForeignKey(nameof(BranchId))]
+    public Branch? Branch { get; set; }
+
+    /// <summary>Taklifni yaratgan user.</summary>
+    [ForeignKey(nameof(CreatedByUserId))]
+    public User? CreatedByUser { get; set; }
+
+    /// <summary>Taklifni ishlatgan user (agar ishlatilgan bo'lsa).</summary>
+    [ForeignKey(nameof(UsedByUserId))]
+    public User? UsedByUser { get; set; }
 }
 

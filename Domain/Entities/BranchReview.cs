@@ -8,8 +8,8 @@ namespace SaveEat.Domain.Entities;
 /// Mijozlar tomonidan qoldirilgan sharhlar va baholar.
 /// Har bir sharh buyurtma bilan bog'langan va filialga tegishli bo'ladi.
 /// </summary>
-[Table("reviews")]
-public class Review
+[Table("branch_reviews")]
+public class BranchReview
 {
     /// <summary>Sharh UUID.</summary>
     [Key]
@@ -51,5 +51,18 @@ public class Review
 
     /// <summary>Sharh yozilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation properties
+    /// <summary>Tegishli buyurtma.</summary>
+    [ForeignKey(nameof(OrderId))]
+    public Order? Order { get; set; }
+
+    /// <summary>Sharh yozgan user.</summary>
+    [ForeignKey(nameof(UserId))]
+    public User? User { get; set; }
+
+    /// <summary>Tegishli filial.</summary>
+    [ForeignKey(nameof(BranchId))]
+    public Branch? Branch { get; set; }
 }

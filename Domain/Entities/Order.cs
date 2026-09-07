@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SaveEat.Domain.Enums;
@@ -6,7 +6,7 @@ using SaveEat.Domain.Enums;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// Buyurtma yozuvi — mijoz buyurtma bergan savat, miqdor, to'lov holati va tasdiqlash ma'lumotlari.
+/// Buyurtma yozuvi � mijoz buyurtma bergan bundle, miqdor, to'lov holati va tasdiqlash ma'lumotlari.
 /// Order ichida to'lov, kelish va tasdiqlashga oid maydonlar mavjud.
 /// </summary>
 [Table("orders")]
@@ -26,7 +26,7 @@ public class Order
     [Column("user_id")]
     public Guid UserId { get; set; }
 
-    /// <summary>Sotib olingan savat ID.</summary>
+    /// <summary>Sotib olingan bundle ID.</summary>
     [Column("bag_id")]
     public Guid BagId { get; set; }
 
@@ -38,7 +38,7 @@ public class Order
     [Column("scanned_by_user_id")]
     public Guid? ScannedByUserId { get; set; }
 
-    /// <summary>Savat soni.</summary>
+    /// <summary>Bundle soni.</summary>
     [Column("quantity")]
     public int Quantity { get; set; } = 1;
 
@@ -74,7 +74,7 @@ public class Order
     [Column("telegram_confirmation_msg_id")]
     public long? TelegramConfirmationMsgId { get; set; }
 
-    /// <summary>Mijoz savatni olganini tasdiqladi-mi.</summary>
+    /// <summary>Mijoz bundlni olganini tasdiqladi-mi.</summary>
     [Column("is_client_confirmed")]
     public bool IsClientConfirmed { get; set; } = false;
 
@@ -118,5 +118,28 @@ public class Order
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation properties
+    /// <summary>Buyurtma qilgan user.</summary>
+    [ForeignKey(nameof(UserId))]
+    public User? User { get; set; }
+
+    /// <summary>Sotib olingan bundle.</summary>
+    [ForeignKey(nameof(BagId))]
+    public ProductBundle? Bundle { get; set; }
+
+    /// <summary>Pickup filiali.</summary>
+    [ForeignKey(nameof(BranchId))]
+    public Branch? Branch { get; set; }
+
+    /// <summary>QRni skaner qilgan xodim.</summary>
+    [ForeignKey(nameof(ScannedByUserId))]
+    public Employee? ScannedByEmployee { get; set; }
+
+    /// <summary>Buyurtma to'lov yozuvi.</summary>
+    public Payment? Payment { get; set; }
+
+    /// <summary>Buyurtma tasnifi (sharh).</summary>
+    public BranchReview? Review { get; set; }
 }

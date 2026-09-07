@@ -14,7 +14,7 @@ public class MerchantWallet
     /// <summary>Hamyon UUID identifikatori.</summary>
     [Key]
     [Column("id")]
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     /// <summary>Ushbu hamyon tegishli bo'lgan merchant ID.</summary>
     [Column("merchant_id")]
@@ -35,4 +35,9 @@ public class MerchantWallet
     /// <summary>Balans oxirgi yangilangan vaqt (UTC).</summary>
     [Column("updated_at")]
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+    // Navigation
+    /// <summary>Tegishli merchant.</summary>
+    [ForeignKey(nameof(MerchantId))]
+    public Merchant? Merchant { get; set; }
 }

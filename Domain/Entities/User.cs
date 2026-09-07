@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SaveEat.Domain.Enums;
@@ -6,7 +7,7 @@ using SaveEat.Domain.Enums;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// Tizim foydalanuvchisi — Telegram orqali autentifikatsiya qilingan mijoz yoki admin.
+/// Tizim foydalanuvchisi � Telegram orqali autentifikatsiya qilingan mijoz yoki admin.
 /// Ushbu klass foydalanuvchining shaxsiy ma'lumotlarini va holatini saqlaydi.
 /// </summary>
 [Table("users")]
@@ -45,7 +46,7 @@ public class User
     [Column("role")]
     public UserRole Role { get; set; } = UserRole.Client;
 
-    /// <summary>Mijozning reytingi (1.0 - 5.0).</summary>
+    /// <summary>Foydalanuvchining reytingi (1.0 - 5.0).</summary>
     [Column("rating")]
     public decimal Rating { get; set; } = 5.00m;
 
@@ -55,10 +56,16 @@ public class User
 
     /// <summary>Ro'yxatdan o'tgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
-    /// <summary>Profil oxirgi yangilangam vaqt (UTC).</summary>
+    /// <summary>Profil oxirgi yangilangan vaqt (UTC).</summary>
     [Column("updated_at")]
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-}
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
+    // Navigation properties
+    /// <summary>Foydalanuvchi yaratgan buyurtmalar.</summary>
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    /// <summary>Foydalanuvchi qoldirgan sharhlar.</summary>
+    public ICollection<BranchReview> Reviews { get; set; } = new List<BranchReview>();
+}

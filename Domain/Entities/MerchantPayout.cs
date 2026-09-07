@@ -7,8 +7,8 @@ namespace SaveEat.Domain.Entities;
 /// <summary>
 /// Bank orqali hisob-kitob reestri — do'konlarga o'tkazilgan/otkaziladigan to'lovlar haqida yozuv.
 /// </summary>
-[Table("merchant_settlements")]
-public class MerchantSettlement
+[Table("merchant_payouts")]
+public class MerchantPayout
 {
     /// <summary>Reestr yozuvi UUID.</summary>
     [Key]
@@ -56,6 +56,11 @@ public class MerchantSettlement
 
     /// <summary>Reestr yozuvi yaratildi (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation
+    /// <summary>Tegishli merchant.</summary>
+    [ForeignKey(nameof(MerchantId))]
+    public Merchant? Merchant { get; set; }
 }
 

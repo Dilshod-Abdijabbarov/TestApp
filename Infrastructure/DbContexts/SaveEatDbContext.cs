@@ -11,18 +11,18 @@ public class SaveEatDbContext : DbContext
     }
 
     public DbSet<Merchant> Merchants { get; set; }
-    public DbSet<MerchantBranch> MerchantBranches { get; set; }
-    public DbSet<MerchantInvite> MerchantInvites { get; set; }
-    public DbSet<MerchantSettlement> MerchantSettlements { get; set; }
-    public DbSet<MerchantUser> MerchantUsers { get; set; }
+    public DbSet<Branch> Branches { get; set; }
+    public DbSet<EmployeeInvite> EmployeeInvites { get; set; }
+    public DbSet<MerchantPayout> MerchantPayouts { get; set; }
+    public DbSet<Employee> Employees { get; set; }
     public DbSet<MerchantWallet> MerchantWallets { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Payment> Payments { get; set; }
-    public DbSet<Review> Reviews { get; set; }
-    public DbSet<SurpriseBag> SurpriseBags { get; set; }
-    public DbSet<SurpriseBagImage> SurpriseBagImages { get; set; }
+    public DbSet<BranchReview> BranchReviews { get ; set; }
+    public DbSet<ProductBundle> ProductBundles{ get; set; }
+    public DbSet<ProductBundleImage> ProductBundleImages { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<BagAssignee> BagAssignees { get; set; }
+    public DbSet<BundleAssignee> GetBundleAssignees { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,16 +32,16 @@ public class SaveEatDbContext : DbContext
         modelBuilder.Entity<Merchant>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<MerchantBranch>()
+        modelBuilder.Entity<Branch>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<MerchantInvite>()
+        modelBuilder.Entity<EmployeeInvite>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<MerchantBranch>()
+        modelBuilder.Entity<Branch>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<MerchantSettlement>()
+        modelBuilder.Entity<MerchantPayout>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         modelBuilder.Entity<Order>()
@@ -50,14 +50,13 @@ public class SaveEatDbContext : DbContext
         modelBuilder.Entity<Payment>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<Review>()
+        modelBuilder.Entity<BranchReview>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-
-        modelBuilder.Entity<SurpriseBag>()
+        modelBuilder.Entity<ProductBundle>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<SurpriseBagImage>()
+        modelBuilder.Entity<ProductBundleImage>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         modelBuilder.Entity<User>()

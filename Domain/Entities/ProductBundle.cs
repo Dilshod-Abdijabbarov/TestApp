@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SaveEat.Domain.Enums;
@@ -6,31 +7,31 @@ using SaveEat.Domain.Enums;
 namespace SaveEat.Domain.Entities;
 
 /// <summary>
-/// Savat partiyasi (surprise bag) — chegirmaga qo'yilgan mahsulot paketlari.
+/// Mahsulot to'plami (surprise bag) — chegirmaga qo'yilgan mahsulot paketlari.
 /// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
 /// </summary>
-[Table("surprise_bags")]
-public class SurpriseBag
+[Table("product_bundles")]
+public class ProductBundle
 {
-    /// <summary>Savat UUID identifikatori.</summary>
+    /// <summary>Bundle UUID identifikatori.</summary>
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi filialga tegishli savat.</summary>
+    /// <summary>Qaysi filialga tegishli bundle.</summary>
     [Column("branch_id")]
     public Guid BranchId { get; set; }
 
-    /// <summary>Savatni kiritgan xodim (merchant_users.id).</summary>
+    /// <summary>Bundleni kiritgan xodim (employees.id).</summary>
     [Column("created_by_user_id")]
     public Guid CreatedByUserId { get; set; }
 
-    /// <summary>Savat nomi (sarlavha).</summary>
+    /// <summary>Bundle nomi (sarlavha).</summary>
     [MaxLength(200)]
     [Column("title")]
     public string Title { get; set; } = string.Empty;
 
-    /// <summary>Savat toifasi (BagCategory).</summary>
+    /// <summary>Bundle toifasi (BagCategory).</summary>
     [Column("category")]
     public BagCategory Category { get; set; }
 
@@ -75,7 +76,7 @@ public class SurpriseBag
     [Column("pickup_end")]
     public DateTime PickupEnd { get; set; }
 
-    /// <summary>Savat holati (ACTIVE, SOLD_OUT ...).</summary>
+    /// <summary>Bundle holati (ACTIVE, SOLD_OUT ...).</summary>
     [Column("status")]
     public BagStatus Status { get; set; } = BagStatus.Active;
 
@@ -86,5 +87,23 @@ public class SurpriseBag
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+
+    // Navigation properties
+    /// <summary>Tegishli filial.</summary>
+    [ForeignKey(nameof(BranchId))]
+    public Branch? Branch { get; set; }
+
+    /// <summary>Bundleni yaratgan employee.</summary>
+    [ForeignKey(nameof(CreatedByUserId))]
+    public Employee? CreatedByEmployee { get; set; }
+
+    /// <summary>Bundle rasmlari.</summary>
+    public ICollection<ProductBundleImage> Images { get; set; } = new List<ProductBundleImage>();
+
+    /// <summary>Bundl buyurtmalari.</summary>
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    /// <summary>Bundl biriktirilgan xodimlar.</summary>
+    public ICollection<BundleAssignee> Assignees { get; set; } = new List<BundleAssignee>();
 }
