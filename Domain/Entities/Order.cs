@@ -1,7 +1,10 @@
+using Domain.Enums;
+using SaveEat.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SaveEat.Domain.Enums;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SaveEat.Domain.Entities;
 
@@ -35,8 +38,8 @@ public class Order
     public Guid BranchId { get; set; }
 
     /// <summary>QRni skaner qilgan xodim (agar skanerlangan bo'lsa).</summary>
-    [Column("scanned_by_user_id")]
-    public Guid? ScannedByUserId { get; set; }
+    [Column("scanned_by_employee_id")] 
+    public Guid? ScannedByEmployeeId { get; set; }
 
     /// <summary>Bundle soni.</summary>
     [Column("quantity")]
@@ -58,43 +61,19 @@ public class Order
     [Column("status")]
     public OrderStatus Status { get; set; } = OrderStatus.PendingPayment;
 
-    /// <summary>Mijoz yetib kelganligini bildirgan flag.</summary>
-    [Column("is_client_arrived")]
-    public bool IsClientArrived { get; set; } = false;
-
-    /// <summary>Mijoz kelgan vaqt (agar bildirgan bo'lsa).</summary>
-    [Column("arrived_at")]
-    public DateTime? ArrivedAt { get; set; }
-
-    /// <summary>QR skanerlangan vaqt.</summary>
-    [Column("scanned_at")]
-    public DateTime? ScannedAt { get; set; }
-
     /// <summary>Telegram orqali yuborilgan tasdiqlash xabari ID si.</summary>
     [Column("telegram_confirmation_msg_id")]
     public long? TelegramConfirmationMsgId { get; set; }
 
-    /// <summary>Mijoz bundlni olganini tasdiqladi-mi.</summary>
-    [Column("is_client_confirmed")]
-    public bool IsClientConfirmed { get; set; } = false;
-
-    /// <summary>Mijoz tasdiqlagan aniq vaqt.</summary>
-    [Column("client_confirmed_at")]
-    public DateTime? ClientConfirmedAt { get; set; }
-
     /// <summary>Tasdiqlash usuli (Telegram, PIN, avtomatik timeout).</summary>
     [MaxLength(30)]
     [Column("confirmation_method")]
-    public string? ConfirmationMethod { get; set; }
+    public ConfirmationMethod ConfirmationMethod { get; set; }
 
-    /// <summary>PIN orqali qo'lda tasdiqlash sababi.</summary>
-    [Column("override_reason")]
-    public string? OverrideReason { get; set; }
-
-    /// <summary>Zaxira 6 xonali PIN kod (agar ishlatilsa).</summary>
-    [MaxLength(6)]
-    [Column("claim_pin")]
-    public string ClaimPin { get; set; } = string.Empty;
+    // TUZATISH: xavfsiz default — bo'sh qator emas, null. PIN faqat Service qatlamida,
+    // Order yaratilishi bilan darhol tasodifiy generatsiya qilinadi (masalan RandomNumberGenerator orqali).
+    [MaxLength(6)][Column("claim_pin")] 
+    public string? ClaimPin { get; set; }
 
     /// <summary>QR-token tasdiqlash uchun.</summary>
     [Column("qr_token")]
@@ -104,6 +83,18 @@ public class Order
     [Column("reserved_until")]
     public DateTime ReservedUntil { get; set; }
 
+    /// <summary>Mijoz kelgan vaqt (agar bildirgan bo'lsa).</summary>
+    [Column("arrived_at")]
+    public DateTime? ArrivedAt { get; set; }
+
+    /// <summary>QR skanerlangan vaqt.</summary>
+    [Column("scanned_at")]
+    public DateTime? ScannedAt { get; set; }
+
+    /// <summary>Mijoz tasdiqlagan aniq vaqt.</summary>
+    [Column("client_confirmed_at")]
+    public DateTime? ClientConfirmedAt { get; set; }
+
     /// <summary>Buyurtma mukammal yakunlangan vaqt.</summary>
     [Column("completed_at")]
     public DateTime? CompletedAt { get; set; }
@@ -112,13 +103,24 @@ public class Order
     [Column("cancelled_at")]
     public DateTime? CancelledAt { get; set; }
 
+    /// <summary>Yaratilgan vaqt (UTC).</summary>
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
     /// <summary>Bekor qilish sababi.</summary>
     [Column("cancellation_reason")]
     public string? CancellationReason { get; set; }
 
-    /// <summary>Yaratilgan vaqt (UTC).</summary>
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+    // TUZATISH: string -> enum (kod) + alohida erkin izoh maydoni
+    [Column("cancellation_reason")] 
+    public CancellationReason CancellationReasonCode { get; set; }
+
+    /// TUZATISH: bekor qilish sababi uchun erkin izoh maydoni
+    [Column("cancellation_note")]
+    public string? CancellationNote { get; set; }
+
+    /// <summary>PIN orqali qo'lda tasdiqlash sababi.</summary>
+    [Column("override_reason")] 
+    public OverrideReason OverrideReason { get; set; }
 
     // Navigation properties
     /// <summary>Buyurtma qilgan user.</summary>
@@ -134,7 +136,7 @@ public class Order
     public Branch? Branch { get; set; }
 
     /// <summary>QRni skaner qilgan xodim.</summary>
-    [ForeignKey(nameof(ScannedByUserId))]
+    [ForeignKey(nameof(ScannedByEmployeeId))]
     public Employee? ScannedByEmployee { get; set; }
 
     /// <summary>Buyurtma to'lov yozuvi.</summary>
@@ -142,4 +144,33 @@ public class Order
 
     /// <summary>Buyurtma tasnifi (sharh).</summary>
     public BranchReview? Review { get; set; }
+
+    /// <summary>Service qatlamida saqlashdan oldin tekshirish uchun.</summary>
+    public bool IsAmountConsistent() => TotalAmount == PlatformFee + MerchantAmount;
+    private string GenerateCode()
+    {
+        // 6 ta random belgi yaratish
+        string randomPart = GetRandomString(6);
+
+        // Yakuniy token yig‘ish
+        string token = $"TK-{randomPart}";
+
+        return token;
+    }
+
+    private string GetRandomString(int length)
+    {
+        var result = new StringBuilder(length);
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            var bytes = new byte[length];
+            rng.GetBytes(bytes);
+            foreach (var b in bytes)
+                result.Append(_chars[b % _chars.Length]);
+        }
+        return result.ToString();
+    }
+
+    private char[] _chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
 }
+

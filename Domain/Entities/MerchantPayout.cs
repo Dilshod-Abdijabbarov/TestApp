@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SaveEat.Domain.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -42,9 +43,8 @@ public class MerchantPayout
     public DateTime PeriodEnd { get; set; }
 
     /// <summary>Jarayon holati (PENDING, PAID ...).</summary>
-    [MaxLength(30)]
     [Column("status")]
-    public string Status { get; set; } = "PENDING";
+    public PaymentStatus Status { get; set; }
 
     /// <summary>To'lov topshirig'i fayli yoki URL.</summary>
     [Column("payment_proof_url")]

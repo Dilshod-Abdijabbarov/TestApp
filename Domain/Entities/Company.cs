@@ -87,5 +87,12 @@ public class Company
 
     /// <summary>Hamkor tomonidan yaratilgan taklif havolalari.</summary>
     public ICollection<EmployeeInvite> EmployeeInvites { get; set; } = new List<EmployeeInvite>();
+
+    /// <summary>
+    /// Sotib bo'lmagan tovarlarni tekshirish uchun oson yo'l — barcha faol filiallar
+    /// bo'yicha muddati yaqinlashgan lotlarni yig'ish
+    /// </summary>
+    public IEnumerable<ProductBundle> GetAllActiveListings()
+        => Branches.SelectMany(b => b.ProductBundles).Where(pb => pb.Status == BagStatus.Active);
 }
 

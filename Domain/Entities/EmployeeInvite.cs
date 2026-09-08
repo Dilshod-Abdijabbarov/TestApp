@@ -19,7 +19,7 @@ public class EmployeeInvite
 
     /// <summary>Qaysi Kompaniya taklif qiladi.</summary>
     [Column("company_id")]
-    public Guid CompanytId { get; set; }
+    public Guid CompanyId { get; set; }
 
     /// <summary>Agar kerak bo'lsa, filialga bog'lash.</summary>
     [Column("branch_id")]
@@ -48,7 +48,7 @@ public class EmployeeInvite
 
     /// <summary>Havolani kim ishlatdi (agar ishlatilgan bo'lsa).</summary>
     [Column("used_by_user_id")]
-    public long? UsedByUserId { get; set; }
+    public Guid? UsedByUserId { get; set; }
 
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
@@ -56,7 +56,7 @@ public class EmployeeInvite
 
     // Navigation properties
     /// <summary>Taklif qilgan merchant.</summary>
-    [ForeignKey(nameof(CompanytId))]
+    [ForeignKey(nameof(CompanyId))]
     public Company? Company { get; set; }
 
     /// <summary>Taklif qilgan filial (agar mavjud bo'lsa).</summary>
