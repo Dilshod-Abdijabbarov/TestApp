@@ -5,69 +5,67 @@ using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
 
-/// <summary>
 /// Employee uchun taklif havolalari (invites) — deep-link token orqali yangi xodimlarni taklif qilish.
 /// Havola muddati, ishlatilganligi va rol ma'lumotlarini saqlaydi.
-/// </summary>
 [Table("employee_invites")]
 public class EmployeeInvite
 {
-    /// <summary>Taklif yozuvi UUID.</summary>
+    ///  Taklif yozuvi UUID. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi Kompaniya taklif qiladi.</summary>
+    ///  Qaysi Kompaniya taklif qiladi. 
     [Column("company_id")]
     public Guid CompanyId { get; set; }
 
-    /// <summary>Agar kerak bo'lsa, filialga bog'lash.</summary>
+    ///  Agar kerak bo'lsa, filialga bog'lash. 
     [Column("branch_id")]
     public Guid? BranchId { get; set; }
 
-    /// <summary>Taklif qilingan roli.</summary>
+    ///  Taklif qilingan roli. 
     [Column("role")]
-    public MerchantUserRole Role { get; set; } = MerchantUserRole.Cashier;
+    public CompanyUserRole Role { get; set; } = CompanyUserRole.Ofitsant;
 
-    /// <summary>Deep-link tokeni.</summary>
+    ///  Deep-link tokeni. 
     [MaxLength(64)]
     [Column("token")]
     public string Token { get; set; } = string.Empty;
 
-    /// <summary>Taklifni kim yaratdi (users.id).</summary>
+    ///  Taklifni kim yaratdi (users.id). 
     [Column("created_by_user_id")]
     public Guid CreatedByUserId { get; set; }
 
-    /// <summary>Havolaning amallilik muddati (UTC).</summary>
+    ///  Havolaning amallilik muddati (UTC). 
     [Column("expires_at")]
     public DateTime ExpiresAt { get; set; }
 
-    /// <summary>Havola ishlatildimi flagi.</summary>
+    ///  Havola ishlatildimi flagi. 
     [Column("is_used")]
     public bool IsUsed { get; set; } = false;
 
-    /// <summary>Havolani kim ishlatdi (agar ishlatilgan bo'lsa).</summary>
+    ///  Havolani kim ishlatdi (agar ishlatilgan bo'lsa). 
     [Column("used_by_user_id")]
     public Guid? UsedByUserId { get; set; }
 
-    /// <summary>Yaratilgan vaqt (UTC).</summary>
+    ///  Yaratilgan vaqt (UTC). 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
-    /// <summary>Taklif qilgan merchant.</summary>
+    ///  Taklif qilgan merchant. 
     [ForeignKey(nameof(CompanyId))]
     public Company? Company { get; set; }
 
-    /// <summary>Taklif qilgan filial (agar mavjud bo'lsa).</summary>
+    ///  Taklif qilgan filial (agar mavjud bo'lsa). 
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
 
-    /// <summary>Taklifni yaratgan user.</summary>
+    ///  Taklifni yaratgan user. 
     [ForeignKey(nameof(CreatedByUserId))]
     public User? CreatedByUser { get; set; }
 
-    /// <summary>Taklifni ishlatgan user (agar ishlatilgan bo'lsa).</summary>
+    ///  Taklifni ishlatgan user (agar ishlatilgan bo'lsa). 
     [ForeignKey(nameof(UsedByUserId))]
     public User? UsedByUser { get; set; }
 }

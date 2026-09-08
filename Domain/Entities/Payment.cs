@@ -5,53 +5,51 @@ using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
 
-/// <summary>
 /// To'lovlar jurnali — har bir buyurtma bo'yicha bank yoki to'lov provayderi transaksiyalarini saqlaydi.
 /// Payload maydoni bankdan kelgan xom JSONni saqlash uchun ishlatiladi.
-/// </summary>
 [Table("payments")]
 public class Payment
 {
-    /// <summary>To'lov UUID.</summary>
+    ///  To'lov UUID. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi buyurtmaga tegishli (orders.id).</summary>
+    ///  Qaysi buyurtmaga tegishli (orders.id). 
     [Column("order_id")]
     public Guid OrderId { get; set; }
 
-    /// <summary>To'lov provayderi (CLICK, PAYME, UZUM ...).</summary>
+    ///  To'lov provayderi (CLICK, PAYME, UZUM ...). 
     [Column("provider")]
     public PaymentProvider Provider { get; set; }
 
-    /// <summary>Bank tranzaksiya raqami.</summary>
+    ///  Bank tranzaksiya raqami. 
     [MaxLength(100)]
     [Column("transaction_id")]
     public string? TransactionId { get; set; }
 
-    /// <summary>To'langan summa.</summary>
+    ///  To'langan summa. 
     [Column("amount")]
     public decimal Amount { get; set; }
 
-    /// <summary>To'lov holati (Initialized, Success, Failed ...).</summary>
+    ///  To'lov holati (Initialized, Success, Failed ...). 
     [Column("status")]
     public PaymentStatus Status { get; set; } = PaymentStatus.Initialized;
 
-    /// <summary>Bankdan kelgan xom JSON javob (postgres jsonb).</summary>
+    ///  Bankdan kelgan xom JSON javob (postgres jsonb). 
     [Column("payload", TypeName = "jsonb")]
     public string? Payload { get; set; }
 
-    /// <summary>Yaratilgan vaqt (UTC).</summary>
+    ///  Yaratilgan vaqt (UTC). 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
-    /// <summary>Oxirgi yangilanish vaqti (UTC).</summary>
+    ///  Oxirgi yangilanish vaqti (UTC). 
     [Column("updated_at")]
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation
-    /// <summary>Tegishli buyurtma.</summary>
+    ///  Tegishli buyurtma. 
     [ForeignKey(nameof(OrderId))]
     public Order? Order { get; set; }
 }

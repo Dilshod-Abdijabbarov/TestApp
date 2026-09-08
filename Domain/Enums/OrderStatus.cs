@@ -1,28 +1,26 @@
 namespace SaveEat.Domain.Enums;
 
-/// <summary>
 /// Buyurtma holatlari — to'lovdan tortib yetkazib berishgacha bo'lgan jarayonni ifodalaydi.
-/// </summary>
 public enum OrderStatus
 {
-    /// <summary>To'lov kutilyapti (mijoz hali to'lamagan).</summary>
+    ///  To'lov kutilyapti (mijoz hali to'lamagan). 
     PendingPayment = 0,
 
-    /// <summary>To'lov amalga oshirilgan.</summary>
+    ///  To'lov amalga oshirilgan. 
     Paid = 1,
 
-    /// <summary>Buyurtma qayta ishlanmoqda (tayyorlash bosqichi).</summary>
+    ///  Buyurtma qayta ishlanmoqda (tayyorlash bosqichi). 
     Processing = 2,
 
-    /// <summary>Olib ketish uchun tayyor.</summary>
+    ///  Olib ketish uchun tayyor. 
     ReadyForPickup = 3,
 
-    /// <summary>Mijoz buyurtmani olib ketgan va jarayon yakunlangan.</summary>
+    ///  Mijoz buyurtmani olib ketgan va jarayon yakunlangan. 
     Completed = 4,
 
-    /// <summary>Buyurtma bekor qilingan.</summary>
+    ///  Buyurtma bekor qilingan. 
     Cancelled = 5,
 
-    /// <summary>Buyurtma summasi qaytarilgan (refund qilingan).</summary>
+    ///  Buyurtma summasi qaytarilgan (refund qilingan). 
     Refunded = 6
 }

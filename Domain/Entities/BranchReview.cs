@@ -4,65 +4,63 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveEat.Domain.Entities;
 
-/// <summary>
 /// Mijozlar tomonidan qoldirilgan sharhlar va baholar.
 /// Har bir sharh buyurtma bilan bog'langan va filialga tegishli bo'ladi.
-/// </summary>
 [Table("branch_reviews")]
 public class BranchReview
 {
-    /// <summary>Sharh UUID.</summary>
+    ///  Sharh UUID. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi buyurtma uchun qoldirilgan.</summary>
+    ///  Qaysi buyurtma uchun qoldirilgan. 
     [Column("order_id")]
     public Guid OrderId { get; set; }
 
-    /// <summary>Sharhni yozgan foydalanuvchi (users.id).</summary>
+    ///  Sharhni yozgan foydalanuvchi (users.id). 
     [Column("user_id")]
     public Guid UserId { get; set; }
 
-    /// <summary>Filial identifikatori.</summary>
+    ///  Filial identifikatori. 
     [Column("branch_id")]
     public Guid BranchId { get; set; }
 
-    /// <summary>Baho (1 dan 5 gacha).</summary>
+    ///  Baho (1 dan 5 gacha). 
     [Range(1, 5)]
     [Column("rating")]
     public int Rating { get; set; }
 
-    /// <summary>Mijoz matnli fikri.</summary>
+    ///  Mijoz matnli fikri. 
     [Column("comment")]
     public string? Comment { get; set; }
 
-    /// <summary>Sharh anonim bo'lib qoldiriladimi.</summary>
+    ///  Sharh anonim bo'lib qoldiriladimi. 
     [Column("is_anonymous")]
     public bool IsAnonymous { get; set; } = false;
 
-    /// <summary>Do'kon admini tomonidan berilgan rasmiy javob.</summary>
+    ///  Do'kon admini tomonidan berilgan rasmiy javob. 
     [Column("reply_from_merchant")]
     public string? ReplyFromMerchant { get; set; }
 
-    /// <summary>Javob berilgan vaqt (agar mavjud bo'lsa).</summary>
+    ///  Javob berilgan vaqt (agar mavjud bo'lsa). 
     [Column("replied_at")]
     public DateTime? RepliedAt { get; set; }
 
-    /// <summary>Sharh yozilgan vaqt (UTC).</summary>
+    ///  Sharh yozilgan vaqt (UTC). 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
-    /// <summary>Tegishli buyurtma.</summary>
+    ///  Tegishli buyurtma. 
     [ForeignKey(nameof(OrderId))]
     public Order? Order { get; set; }
 
-    /// <summary>Sharh yozgan user.</summary>
+    ///  Sharh yozgan user. 
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 
-    /// <summary>Tegishli filial.</summary>
+    ///  Tegishli filial. 
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
 }

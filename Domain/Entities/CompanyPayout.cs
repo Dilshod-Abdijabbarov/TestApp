@@ -5,62 +5,61 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveEat.Domain.Entities;
 
-/// <summary>
 /// Bank orqali hisob-kitob reestri — do'konlarga o'tkazilgan/otkaziladigan to'lovlar haqida yozuv.
-/// </summary>
 [Table("merchant_payouts")]
-public class MerchantPayout
+public class CompanyPayout
 {
-    /// <summary>Reestr yozuvi UUID.</summary>
+    ///  Reestr yozuvi UUID. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi merchantga to'lov tegishli.</summary>
-    [Column("merchant_id")]
-    public Guid MerchantId { get; set; }
+    ///  filialga tegishli to'lov. 
+    //BranchId
+    [Column("branch_id")]
+    public Guid BranchId { get; set; }
 
-    /// <summary>To'lov hujjat raqami.</summary>
+    ///  To'lov hujjat raqami. 
     [MaxLength(30)]
     [Column("settlement_number")]
     public string SettlementNumber { get; set; } = string.Empty;
 
-    /// <summary>O'tkaziladigan summa.</summary>
+    ///  O'tkaziladigan summa. 
     [Column("amount")]
     public decimal Amount { get; set; }
 
-    /// <summary>Pul tushadigan bank hisobi.</summary>
+    ///  Pul tushadigan bank hisobi. 
     [MaxLength(50)]
     [Column("bank_account")]
     public string BankAccount { get; set; } = string.Empty;
 
-    /// <summary>Hisob davri boshi (UTC).</summary>
+    ///  Hisob davri boshi (UTC). 
     [Column("period_start")]
     public DateTime PeriodStart { get; set; }
 
-    /// <summary>Hisob davri oxiri (UTC).</summary>
+    ///  Hisob davri oxiri (UTC). 
     [Column("period_end")]
     public DateTime PeriodEnd { get; set; }
 
-    /// <summary>Jarayon holati (PENDING, PAID ...).</summary>
+    ///  Jarayon holati (PENDING, PAID ...). 
     [Column("status")]
     public PaymentStatus Status { get; set; }
 
-    /// <summary>To'lov topshirig'i fayli yoki URL.</summary>
+    ///  To'lov topshirig'i fayli yoki URL. 
     [Column("payment_proof_url")]
     public string? PaymentProofUrl { get; set; }
 
-    /// <summary>To'lov qayta ishlangan vaqt (UTC) — agar mavjud bo'lsa.</summary>
+    ///  To'lov qayta ishlangan vaqt (UTC) — agar mavjud bo'lsa. 
     [Column("processed_at")]
     public DateTime? ProcessedAt { get; set; }
 
-    /// <summary>Reestr yozuvi yaratildi (UTC).</summary>
+    ///  Reestr yozuvi yaratildi (UTC). 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation
-    /// <summary>Tegishli merchant.</summary>
-    [ForeignKey(nameof(MerchantId))]
-    public Company? Merchant { get; set; }
+    ///  Branch. 
+    [ForeignKey(nameof(BranchId))]
+    public Branch? Branch { get; set; }
 }
 

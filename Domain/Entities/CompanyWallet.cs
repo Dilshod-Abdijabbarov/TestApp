@@ -4,40 +4,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveEat.Domain.Entities;
 
-/// <summary>
 /// Hamkor do'konning balans va hamyon ma'lumotlari.
 /// AvailableBalance — yechib olinadigan pul, PendingBalance — ushlab turilgan summa.
-/// </summary>
-[Table("merchant_wallets")]
-public class MerchantWallet
+[Table("company_wallets")]
+public class CompanyWallet
 {
-    /// <summary>Hamyon UUID identifikatori.</summary>
+    ///  Hamyon UUID identifikatori. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    /// <summary>Ushbu hamyon tegishli bo'lgan merchant ID.</summary>
-    [Column("merchant_id")]
-    public Guid MerchantId { get; set; }
+    ///  filial id 
+    [Column("branch_id")]
+    public Guid BranchId { get; set; }
 
-    /// <summary>Yechib olinishi mumkin bo'lgan balans.</summary>
+    ///  Yechib olinishi mumkin bo'lgan balans. 
     [Column("available_balance")]
     public decimal AvailableBalance { get; set; } = 0.00m;
 
-    /// <summary>Hozircha ushlab turilgan balans (pending).</summary>
+    ///  Hozircha ushlab turilgan balans (pending). 
     [Column("pending_balance")]
     public decimal PendingBalance { get; set; } = 0.00m;
 
-    /// <summary>Jami yechib olingan summa.</summary>
+    ///  Jami yechib olingan summa. 
     [Column("total_withdrawn")]
     public decimal TotalWithdrawn { get; set; } = 0.00m;
 
-    /// <summary>Balans oxirgi yangilangan vaqt (UTC).</summary>
+    ///  Balans oxirgi yangilangan vaqt (UTC). 
     [Column("updated_at")]
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation
-    /// <summary>Tegishli merchant.</summary>
-    [ForeignKey(nameof(MerchantId))]
-    public Company? Merchant { get; set; }
+    ///  Filial. 
+    [ForeignKey(nameof(BranchId))]
+    public Branch? Branch { get; set; }
 }

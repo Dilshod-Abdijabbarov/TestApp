@@ -4,61 +4,59 @@ using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
 
-/// <summary>
 /// Do'kon xodimi (employee) — asl foydalanuvchi profiliga bog'langan,
 /// filial yoki tarmoq menejeri bo'lishi mumkin (OWNER/MANAGER/CASHIER).
-/// </summary>
 [Table("employees")]
 public class Employee
 {
-    /// <summary>Xodim yozuvi UUID.</summary>
+    ///  Xodim yozuvi UUID. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Asosiy foydalanuvchi profili identifikatori (users.id).</summary>
+    ///  Asosiy foydalanuvchi profili identifikatori (users.id). 
     [Column("user_id")]
     public Guid UserId { get; set; }
 
-    /// <summary>Qaysi merchantga tegishli.</summary>
+    ///  Qaysi merchantga tegishli. 
     [Column("company_id")]
     public Guid CompanyId { get; set; }
 
-    /// <summary>Biriktirilgan filial (agar mavjud bo'lsa).</summary>
+    ///  Biriktirilgan filial (agar mavjud bo'lsa). 
     [Column("branch_id")]
     public Guid? BranchId { get; set; }
 
-    /// <summary>Xodim roli.</summary>
+    ///  Xodim roli. 
     [Column("role")]
-    public MerchantUserRole Role { get; set; } = MerchantUserRole.Cashier;
+    public CompanyUserRole Role { get; set; } = CompanyUserRole.Ofitsiant;
 
-    /// <summary>Xodim faol yoki emas flagi.</summary>
+    ///  Xodim faol yoki emas flagi. 
     [Column("is_active")]
     public bool IsActive { get; set; } = true;
 
-    /// <summary>Yozuv yaratildi (UTC).</summary>
+    ///  Yozuv yaratildi (UTC). 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
-    /// <summary>Tegishli foydalanuvchi.</summary>
+    ///  Tegishli foydalanuvchi. 
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 
-    /// <summary>Tegishli merchant.</summary>
+    ///  Tegishli merchant. 
     [ForeignKey(nameof(CompanyId))]
     public Company? Company { get; set; }
 
-    /// <summary>Tegishli filial (agar mavjud bo'lsa).</summary>
+    ///  Tegishli filial (agar mavjud bo'lsa). 
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
 
-    /// <summary>Ushbu xodim yaratgan product bundllar.</summary>
+    ///  Ushbu xodim yaratgan product bundllar. 
     public ICollection<ProductBundle> CreatedBundles { get; set; } = new List<ProductBundle>();
 
-    /// <summary>Ushbu xodim biriktirilgan bundllar.</summary>
+    ///  Ushbu xodim biriktirilgan bundllar. 
     public ICollection<BundleAssignee> AssignedBundles { get; set; } = new List<BundleAssignee>();
 
-    /// <summary>Ushbu xodim skaner qilgan buyurtmalar.</summary>
+    ///  Ushbu xodim skaner qilgan buyurtmalar. 
     public ICollection<Order> ScannedOrders { get; set; } = new List<Order>();
 }

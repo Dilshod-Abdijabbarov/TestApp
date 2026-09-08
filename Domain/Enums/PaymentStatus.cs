@@ -1,25 +1,23 @@
 namespace SaveEat.Domain.Enums;
 
-/// <summary>
 /// To'lov yozuvining holati — bank javoblari va tranzaksiya monitoringi uchun.
-/// </summary>
 public enum PaymentStatus
 {
-    /// <summary>To'lov boshlangani/inisializatsiya qilingan.</summary>
+    ///  To'lov boshlangani/inisializatsiya qilingan. 
     Initialized = 0,
 
-    /// <summary>To'lov jarayoni davom etmoqda (pending).</summary>
+    ///  To'lov jarayoni davom etmoqda (pending). 
     Pending = 1,
 
-    /// <summary>To'lov muvaffaqiyatli yakunlandi.</summary>
+    ///  To'lov muvaffaqiyatli yakunlandi. 
     Success = 2,
 
-    /// <summary>To'lov muvaffaqiyatsiz tugadi.</summary>
+    ///  To'lov muvaffaqiyatsiz tugadi. 
     Failed = 3,
 
-    /// <summary>Mablag' qaytarildi.</summary>
+    ///  Mablag' qaytarildi. 
     Refunded = 4,
 
-    /// <summary>To'lov bekor qilindi.</summary>
+    ///  To'lov bekor qilindi. 
     Cancelled = 5
 }

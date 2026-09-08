@@ -13,14 +13,14 @@ public class SaveEatDbContext : DbContext
     public DbSet<Company> Merchants { get; set; }
     public DbSet<Branch> Branches { get; set; }
     public DbSet<EmployeeInvite> EmployeeInvites { get; set; }
-    public DbSet<MerchantPayout> MerchantPayouts { get; set; }
+    public DbSet<CompanyPayout> MerchantPayouts { get; set; }
     public DbSet<Employee> Employees { get; set; }
-    public DbSet<MerchantWallet> MerchantWallets { get; set; }
+    public DbSet<CompanyWallet> MerchantWallets { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<BranchReview> BranchReviews { get ; set; }
     public DbSet<ProductBundle> ProductBundles{ get; set; }
-    public DbSet<ProductBundleImage> ProductBundleImages { get; set; }
+    public DbSet<FileModel> ProductBundleImages { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<BundleAssignee> GetBundleAssignees { get; set; }
 
@@ -41,7 +41,7 @@ public class SaveEatDbContext : DbContext
         modelBuilder.Entity<Branch>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<MerchantPayout>()
+        modelBuilder.Entity<CompanyPayout>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         modelBuilder.Entity<Order>()
@@ -56,7 +56,7 @@ public class SaveEatDbContext : DbContext
         modelBuilder.Entity<ProductBundle>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<ProductBundleImage>()
+        modelBuilder.Entity<FileModel>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         modelBuilder.Entity<User>()
