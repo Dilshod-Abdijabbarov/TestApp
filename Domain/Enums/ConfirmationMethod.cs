@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Enums;
+namespace SaveEat.Domain.Enums;
 
 public enum ConfirmationMethod
 {

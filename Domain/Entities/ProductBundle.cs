@@ -27,10 +27,6 @@ public class ProductBundle
     [Column("title")]
     public string Title { get; set; } = string.Empty;
 
-    /// <summary>Tavsif va allergenlar haqida matn.</summary>
-    [Column("description")]
-    public string? Description { get; set; }
-
     /// <summary>Asosiy muqova rasmi URL.</summary>
     [Column("cover_image_url")]
     public string? CoverImageUrl { get; set; }

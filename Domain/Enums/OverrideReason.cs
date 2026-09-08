@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 
-namespace Domain.Enums;
-
+namespace SaveEat.Domain.Enums;
 public enum OverrideReason
 {
     [Display(Name = "Rahbariyat ko'rsatmasi / Maxsus ruxsat")]

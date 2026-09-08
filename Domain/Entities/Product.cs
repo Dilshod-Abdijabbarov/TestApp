@@ -8,12 +8,12 @@ namespace Domain.Entities;
 [Table("products")]
 public class Product
 {
-    /// <summary>Bundle UUID identifikatori.</summary>
+    /// <summary>product UUID identifikatori.</summary>
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    /// <summary>Qaysi filialga tegishli bundle.</summary>
+    /// <summary>Qaysi filialga tegishli product.</summary>
     [Column("branch_id")]
     public Guid BranchId { get; set; }
 
@@ -82,11 +82,5 @@ public class Product
 
     /// <summary>Bundle rasmlari.</summary>
     public ICollection<ProductBundleImage> Images { get; set; } = new List<ProductBundleImage>();
-
-    /// <summary>Bundl buyurtmalari.</summary>
-    public ICollection<Order> Orders { get; set; } = new List<Order>();
-
-    /// <summary>Bundl biriktirilgan xodimlar.</summary>
-    public ICollection<BundleAssignee> Assignees { get; set; } = new List<BundleAssignee>();
 }
 

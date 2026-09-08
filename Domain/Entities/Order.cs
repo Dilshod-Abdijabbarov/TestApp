@@ -106,12 +106,9 @@ public class Order
     /// <summary>Yaratilgan vaqt (UTC).</summary>
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
-    /// <summary>Bekor qilish sababi.</summary>
-    [Column("cancellation_reason")]
-    public string? CancellationReason { get; set; }
 
     // TUZATISH: string -> enum (kod) + alohida erkin izoh maydoni
-    [Column("cancellation_reason")] 
+    [Column("cancellation_reason_code")] 
     public CancellationReason CancellationReasonCode { get; set; }
 
     /// TUZATISH: bekor qilish sababi uchun erkin izoh maydoni
