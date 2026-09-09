@@ -25,7 +25,7 @@ public class EmployeeInvite
 
     ///  Taklif qilingan roli. 
     [Column("role")]
-    public CompanyUserRole Role { get; set; } = CompanyUserRole.Ofitsant;
+    public CompanyUserRole Role { get; set; } = CompanyUserRole.Ofitsiant;
 
     ///  Deep-link tokeni. 
     [MaxLength(64)]
@@ -36,13 +36,9 @@ public class EmployeeInvite
     [Column("created_by_user_id")]
     public Guid CreatedByUserId { get; set; }
 
-    ///  Havolaning amallilik muddati (UTC). 
+    ///  Havolaning amal qilish muddati (UTC). 
     [Column("expires_at")]
     public DateTime ExpiresAt { get; set; }
-
-    ///  Havola ishlatildimi flagi. 
-    [Column("is_used")]
-    public bool IsUsed { get; set; } = false;
 
     ///  Havolani kim ishlatdi (agar ishlatilgan bo'lsa). 
     [Column("used_by_user_id")]
@@ -53,7 +49,7 @@ public class EmployeeInvite
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
-    ///  Taklif qilgan merchant. 
+    ///  Taklif qilgan Companiya. 
     [ForeignKey(nameof(CompanyId))]
     public Company? Company { get; set; }
 

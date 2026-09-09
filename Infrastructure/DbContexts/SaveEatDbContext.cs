@@ -19,7 +19,7 @@ public class SaveEatDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<BranchReview> BranchReviews { get ; set; }
-    public DbSet<ProductBundle> ProductBundles{ get; set; }
+    public DbSet<Bundle> ProductBundles{ get; set; }
     public DbSet<FileModel> ProductBundleImages { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<BundleAssignee> GetBundleAssignees { get; set; }
@@ -53,7 +53,7 @@ public class SaveEatDbContext : DbContext
         modelBuilder.Entity<BranchReview>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<ProductBundle>()
+        modelBuilder.Entity<Bundle>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         modelBuilder.Entity<FileModel>()

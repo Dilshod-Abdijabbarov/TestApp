@@ -77,20 +77,10 @@ public class Company
     ///  Hamkor filiallar. 
     public ICollection<Branch> Branches { get; set; } = new List<Branch>();
 
-    ///   xodimlar. 
-    public ICollection<Employee> Employees { get; set; } = new List<Employee>();
-
     ///  Hamkor hisob-kitob reestri. 
     public ICollection<CompanyPayout> Payouts { get; set; } = new List<CompanyPayout>();
 
     ///  Hamkor tomonidan yaratilgan taklif havolalari. 
     public ICollection<EmployeeInvite> EmployeeInvites { get; set; } = new List<EmployeeInvite>();
-
-    ///  
-    /// Sotib bo'lmagan tovarlarni tekshirish uchun oson yo'l — barcha faol filiallar
-    /// bo'yicha muddati yaqinlashgan lotlarni yig'ish
-    ///  
-    public IEnumerable<ProductBundle> GetAllActiveListings()
-        => Branches.SelectMany(b => b.ProductBundles).Where(pb => pb.Status == ProductBundleStatus.Active);
 }
 

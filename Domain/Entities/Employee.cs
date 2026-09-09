@@ -52,7 +52,7 @@ public class Employee
     public Branch? Branch { get; set; }
 
     ///  Ushbu xodim yaratgan product bundllar. 
-    public ICollection<ProductBundle> CreatedBundles { get; set; } = new List<ProductBundle>();
+    public ICollection<Bundle> CreatedBundles { get; set; } = new List<Bundle>();
 
     ///  Ushbu xodim biriktirilgan bundllar. 
     public ICollection<BundleAssignee> AssignedBundles { get; set; } = new List<BundleAssignee>();

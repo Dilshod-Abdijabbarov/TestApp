@@ -15,24 +15,24 @@ public class BundleAssignee
     public Guid Id { get; set; }
 
     ///  Biriktirilgan bundle ID. 
-    [Column("bag_id")]
-    public Guid BagId { get; set; }
+    [Column("bundle_id")]
+    public Guid BundleId { get; set; }
 
     ///  Mas'ul xodim (employees.id). 
-    [Column("merchant_user_id")]
-    public Guid MerchantUserId { get; set; }
+    [Column("employee_id")]
+    public Guid EmployeeId { get; set; }
 
     ///  Biriktirilgan vaqt (UTC). 
     [Column("assigned_at")]
-    public DateTime AssignedAt { get; set; } = DateTime.UtcNow;
+    public DateTime AssignedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
     ///  Tegishli product bundle. 
-    [ForeignKey(nameof(BagId))]
-    public ProductBundle? Bundle { get; set; }
+    [ForeignKey(nameof(BundleId))]
+    public Bundle? Bundle { get; set; }
 
     ///  Tegishli employee. 
-    [ForeignKey(nameof(MerchantUserId))]
+    [ForeignKey(nameof(EmployeeId))]
     public Employee? AssignedEmployee { get; set; }
 }
 

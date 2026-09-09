@@ -40,8 +40,12 @@ public class BranchReview
     public bool IsAnonymous { get; set; } = false;
 
     ///  Do'kon admini tomonidan berilgan rasmiy javob. 
-    [Column("reply_from_merchant")]
-    public string? ReplyFromMerchant { get; set; }
+    [Column("reply_from_branch")]
+    public string? ReplyFromBranch { get; set; }
+
+    //Sharhga javob bergan xodim/admin identifikatori(users.id yoki employees.id).
+    [Column("replied_by_employee_id")]
+    public Guid? RepliedByEmployeeId { get; set; }
 
     ///  Javob berilgan vaqt (agar mavjud bo'lsa). 
     [Column("replied_at")]
@@ -63,4 +67,7 @@ public class BranchReview
     ///  Tegishli filial. 
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
+
+    [ForeignKey(nameof(RepliedByEmployeeId))]
+    public Employee? RepliedByEmployee { get; set; }
 }

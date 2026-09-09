@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
@@ -9,7 +8,7 @@ namespace SaveEat.Domain.Entities;
 /// Mahsulot to'plami — chegirmaga qo'yilgan mahsulot paketlari.
 /// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
 [Table("product_bundles")]
-public class ProductBundle
+public class Bundle
 {
     ///  Bundle UUID identifikatori. 
     [Key]
@@ -25,9 +24,9 @@ public class ProductBundle
     [Column("title")]
     public string Title { get; set; } = string.Empty;
 
-    ///  Asosiy muqova rasmi URL. 
-    [Column("cover_image_url")]
-    public string? CoverImageUrl { get; set; }
+    ///  Asosiy muqova rasmi id. 
+    [Column("cover_image_id")]
+    public Guid? CoverImageId { get; set; }
 
     ///  Halol standartlariga mos kelishi flagi. 
     [Column("is_halal")]
@@ -66,22 +65,22 @@ public class ProductBundle
     [Column("status")]
     public ProductBundleStatus Status { get; set; } = ProductBundleStatus.Active;
 
+    ///  Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC). 
+    [Column("expiration_date")]
+    public DateTime? ExpirationDate { get; set; }
+
+    ///  Bundleni kiritgan xodim (employees.id). 
+    [Column("created_by_employee_id")]
+    public Guid CreatedByEmployeeId { get; set; }
+
     ///  Optimistic concurrency versiyasi — raqobatni oldini olish uchun. 
     [ConcurrencyCheck]
     [Column("version")]
     public int Version { get; set; } = 0;
 
-    ///  Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC). 
-    [Column("expiration_date")]
-    public DateTime? ExpirationDate { get; set; }
-
     ///  Yaratilgan vaqt (UTC). 
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
-
-    ///  Bundleni kiritgan xodim (employees.id). 
-    [Column("created_by_user_id")]
-    public Guid CreatedByUserId { get; set; }
 
     // Navigation properties
     ///  Tegishli filial. 
@@ -89,9 +88,10 @@ public class ProductBundle
     public Branch? Branch { get; set; }
 
     ///  Bundleni yaratgan employee. 
-    [ForeignKey(nameof(CreatedByUserId))]
+    [ForeignKey(nameof(CreatedByEmployeeId))]
     public Employee? CreatedByEmployee { get; set; }
 
+    public ICollection<BundleItem> BundleItems { get; set; } = new List<BundleItem>();
     ///  Bundl buyurtmalari. 
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 

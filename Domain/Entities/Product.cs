@@ -34,9 +34,9 @@ public class Product
     [Column("description")]
     public string? Description { get; set; }
 
-    ///  Asosiy muqova rasmi URL. 
-    [Column("cover_image_url")]
-    public string? CoverImageUrl { get; set; }
+    ///  Asosiy muqova rasmi id. 
+    [Column("cover_image_id")]
+    public Guid? CoverImageId { get; set; }
 
     ///  Halol standartlariga mos kelishi flagi. 
     [Column("is_halal")]
@@ -50,10 +50,6 @@ public class Product
     ///  Asl umumiy narx. 
     [Column("original_price")]
     public decimal OriginalPrice { get; set; }
-
-    ///  Chegirmali sotish narxi. 
-    [Column("discount_price")]
-    public decimal DiscountPrice { get; set; }
 
     ///  Chiqarilgan jami miqdor. 
     [Column("initial_quantity")]

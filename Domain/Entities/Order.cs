@@ -124,7 +124,7 @@ public class Order
 
     ///  Sotib olingan bundle. 
     [ForeignKey(nameof(BagId))]
-    public ProductBundle? Bundle { get; set; }
+    public Bundle? Bundle { get; set; }
 
     ///  Pickup filiali. 
     [ForeignKey(nameof(BranchId))]
