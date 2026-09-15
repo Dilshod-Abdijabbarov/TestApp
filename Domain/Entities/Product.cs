@@ -24,7 +24,7 @@ public class Product
 
     ///  product toifasi (BagCategory). 
     [Column("category")]
-    public ProductCategory Category { get; set; }
+    public Category Category { get; set; }
 
     ///  Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC). 
     [Column("expiration_date")]

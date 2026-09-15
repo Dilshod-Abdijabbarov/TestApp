@@ -21,7 +21,7 @@ public class FileModel
 
     ///  Slaydda ko'rsatish tartibi. 
     [Column("display_order")]
-    public int DisplayOrder { get; set; } = 0;
+    public int DisplayOrder { get; set; } = 1;
 
     ///  Asosiy rasm flagi. 
     [Column("is_primary")]

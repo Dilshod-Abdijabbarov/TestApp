@@ -2,7 +2,7 @@ namespace SaveEat.Domain.Enums;
 
 /// product toifalari — mahsulotlarni guruhlash uchun ishlatiladi.
 /// Toifalar UI filterlari va statistikalar uchun qo'llanadi.
-public enum ProductCategory
+public enum Category
 {
     ///  Oziq-ovqat mahsulotlari. 
     Food = 0,

@@ -13,6 +13,11 @@ namespace SaveEat.Domain.Entities;
 [Table("orders")]
 public class Order
 {
+    public Order()
+    {
+        ClaimPin = GenerateCode();
+    }
+
     ///  Buyurtma UUID. 
     [Key]
     [Column("id")]
@@ -28,8 +33,8 @@ public class Order
     public Guid UserId { get; set; }
 
     ///  Sotib olingan bundle ID. 
-    [Column("bag_id")]
-    public Guid BagId { get; set; }
+    [Column("bundle_id")]
+    public Guid BundleId { get; set; }
 
     ///  Qaysi filialdan olinadi. 
     [Column("branch_id")]
@@ -69,9 +74,10 @@ public class Order
     public ConfirmationMethod ConfirmationMethod { get; set; }
 
     // TUZATISH: xavfsiz default — bo'sh qator emas, null. PIN faqat Service qatlamida,
-    // Order yaratilishi bilan darhol tasodifiy generatsiya qilinadi (masalan RandomNumberGenerator orqali).
-    [MaxLength(6)][Column("claim_pin")] 
-    public string? ClaimPin { get; set; }
+    // Order yaratilishi bilan darhol tasodifiy generatsiya qilinadi.
+    [MaxLength(9)]
+    [Column("claim_pin")] 
+    public string ClaimPin { get; set; }
 
     ///  QR-token tasdiqlash uchun. 
     [Column("qr_token")]
@@ -93,7 +99,7 @@ public class Order
     [Column("client_confirmed_at")]
     public DateTime? ClientConfirmedAt { get; set; }
 
-    ///  Buyurtma mukammal yakunlangan vaqt. 
+    ///  Buyurtma yakunlangan vaqt. 
     [Column("completed_at")]
     public DateTime? CompletedAt { get; set; }
 
@@ -123,7 +129,7 @@ public class Order
     public User? User { get; set; }
 
     ///  Sotib olingan bundle. 
-    [ForeignKey(nameof(BagId))]
+    [ForeignKey(nameof(BundleId))]
     public Bundle? Bundle { get; set; }
 
     ///  Pickup filiali. 
@@ -142,30 +148,23 @@ public class Order
 
     ///  Service qatlamida saqlashdan oldin tekshirish uchun. 
     public bool IsAmountConsistent() => TotalAmount == PlatformFee + MerchantAmount;
-    private string GenerateCode()
+    private static string GenerateCode()
     {
-        // 6 ta random belgi yaratish
-        string randomPart = GetRandomString(6);
-
-        // Yakuniy token yig‘ish
-        string token = $"TK-{randomPart}";
-
-        return token;
+        return GetRandomString(6);
     }
 
-    private string GetRandomString(int length)
+    private static string GetRandomString(int length)
     {
+        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         var result = new StringBuilder(length);
         using (var rng = RandomNumberGenerator.Create())
         {
             var bytes = new byte[length];
             rng.GetBytes(bytes);
             foreach (var b in bytes)
-                result.Append(_chars[b % _chars.Length]);
+                result.Append(chars[b % chars.Length]);
         }
         return result.ToString();
     }
-
-    private char[] _chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
 }
 

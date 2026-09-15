@@ -58,7 +58,7 @@ public class User
 
     ///  Profil oxirgi yangilangan vaqt (UTC). 
     [Column("updated_at")]
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+    public DateTime UpdatedAt { get; set; }
 
     // Navigation properties
     ///  Foydalanuvchi yaratgan buyurtmalar. 

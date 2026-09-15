@@ -40,7 +40,7 @@ public class Company
 
     ///  Asosiy toifa (bag category). 
     [Column("category")]
-    public ProductCategory Category { get; set; }
+    public Category Category { get; set; }
 
     ///  Logo yoki brend rasmi URL. 
     [Column("logo_url")]
@@ -64,13 +64,13 @@ public class Company
 
     ///  Oxirgi tahrir vaqti (UTC). 
     [Column("updated_at")]
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
+    public DateTime? UpdatedAt { get; set; }
 
     ///   Kompaniyani yaratgan user idsi. 
     [Column("created_by")]
     public Guid CreatedBy { get; set; }
 
-    ///  Hamkor hamyoni. 
+    ///  Companiya hamyoni. 
     public CompanyWallet? Wallet { get; set; }
 
     // Navigation properties
