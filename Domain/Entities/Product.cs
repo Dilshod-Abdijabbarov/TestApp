@@ -72,7 +72,7 @@ public class Product
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
 
-    ///  Bundleni yaratgan employee. 
+    ///  product yaratgan employee. 
     [ForeignKey(nameof(CreatedByUserId))]
     public Employee? CreatedByEmployee { get; set; }
 

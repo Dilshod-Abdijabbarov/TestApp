@@ -51,11 +51,11 @@ public class Employee
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
 
-    ///  Ushbu xodim yaratgan product bundllar. 
-    public ICollection<Bundle> CreatedBundles { get; set; } = new List<Bundle>();
+    ///  Ushbu xodim yaratgan product Setlari. 
+    public ICollection<Set> CreatedSets { get; set; } = new List<Set>();
 
-    ///  Ushbu xodim biriktirilgan bundllar. 
-    public ICollection<BundleAssignee> AssignedBundles { get; set; } = new List<BundleAssignee>();
+    ///  Ushbu xodim biriktirilgan Setlar. 
+    public ICollection<SetAssignee> SetAssignees { get; set; } = new List<SetAssignee>();
 
     ///  Ushbu xodim skaner qilgan buyurtmalar. 
     public ICollection<Order> ScannedOrders { get; set; } = new List<Order>();

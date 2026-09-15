@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveEat.Domain.Entities;
 
-/// Bundlni olib chiqish uchun biriktirilgan xodim yozuvi.
-/// Qaysi xodim qaysi bundlga javobgar ekanligini saqlaydi.
-[Table("bundle_assignees")]
-public class BundleAssignee
+/// Setni olib chiqish uchun biriktirilgan xodim yozuvi.
+/// Qaysi xodim qaysi Setga javobgar ekanligini saqlaydi.
+[Table("Set_assignees")]
+public class SetAssignee
 {
     ///  Yozuv UUID. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    ///  Biriktirilgan bundle ID. 
-    [Column("bundle_id")]
-    public Guid BundleId { get; set; }
+    ///  Biriktirilgan Set ID. 
+    [Column("set_id")]
+    public Guid SetId { get; set; }
 
     ///  Mas'ul xodim (employees.id). 
     [Column("employee_id")]
@@ -27,9 +27,9 @@ public class BundleAssignee
     public DateTime AssignedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
-    ///  Tegishli product bundle. 
-    [ForeignKey(nameof(BundleId))]
-    public Bundle? Bundle { get; set; }
+    ///  Tegishli product Set. 
+    [ForeignKey(nameof(SetId))]
+    public Set? Set { get; set; }
 
     ///  Tegishli employee. 
     [ForeignKey(nameof(EmployeeId))]

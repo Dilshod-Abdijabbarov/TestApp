@@ -36,7 +36,7 @@ public class FileModel
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation
-    ///  Tegishli product bundle. 
+    ///  Tegishli product. 
     [ForeignKey(nameof(ProductId))]
     public Product? Product { get; set; }
 }

@@ -1,7 +1,7 @@
 namespace SaveEat.Domain.Enums;
 
 /// sotuvga chiqarilgan productlar holati
-public enum ProductBundleStatus
+public enum ProductSetStatus
 {
     ///  Faol va sotuvda mavjud. 
     Active = 0,

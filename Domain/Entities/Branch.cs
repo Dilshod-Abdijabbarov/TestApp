@@ -81,5 +81,5 @@ public class Branch
     public ICollection<BranchReview> Reviews { get; set; } = new List<BranchReview>();
 
     ///  Filialning mahsulot to'plami. 
-    public ICollection<Bundle> ProductBundles { get; set; } = new List<Bundle>();
+    public ICollection<Set> Sets { get; set; } = new List<Set>();
 }

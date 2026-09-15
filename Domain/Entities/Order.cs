@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Domain.Enums;
 using SaveEat.Domain.Enums;
 using System;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace SaveEat.Domain.Entities;
 
-/// Buyurtma yozuvi — mijoz buyurtma bergan bundle, miqdor, to'lov holati va tasdiqlash ma'lumotlari.
+/// Buyurtma yozuvi — mijoz buyurtma bergan savatcha, miqdor, to'lov holati va tasdiqlash ma'lumotlari.
 /// Order ichida to'lov, kelish va tasdiqlashga oid maydonlar mavjud.
 [Table("orders")]
 public class Order
@@ -32,10 +33,6 @@ public class Order
     [Column("user_id")]
     public Guid UserId { get; set; }
 
-    ///  Sotib olingan bundle ID. 
-    [Column("bundle_id")]
-    public Guid BundleId { get; set; }
-
     ///  Qaysi filialdan olinadi. 
     [Column("branch_id")]
     public Guid BranchId { get; set; }
@@ -44,7 +41,7 @@ public class Order
     [Column("scanned_by_employee_id")] 
     public Guid? ScannedByEmployeeId { get; set; }
 
-    ///  Bundle soni. 
+    ///  productlar soni. 
     [Column("quantity")]
     public int Quantity { get; set; } = 1;
 
@@ -128,10 +125,6 @@ public class Order
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 
-    ///  Sotib olingan bundle. 
-    [ForeignKey(nameof(BundleId))]
-    public Bundle? Bundle { get; set; }
-
     ///  Pickup filiali. 
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
@@ -145,6 +138,8 @@ public class Order
 
     ///  Buyurtma tasnifi (sharh). 
     public BranchReview? Review { get; set; }
+
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     ///  Service qatlamida saqlashdan oldin tekshirish uchun. 
     public bool IsAmountConsistent() => TotalAmount == PlatformFee + MerchantAmount;

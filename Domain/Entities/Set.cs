@@ -1,25 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Enums;
 using SaveEat.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveEat.Domain.Entities;
 
 /// Mahsulot to'plami — chegirmaga qo'yilgan mahsulot paketlari.
 /// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
-[Table("bundles")]
-public class Bundle
+[Table("Sets")]
+public class Set
 {
-    ///  Bundle UUID identifikatori. 
+    ///  Set UUID identifikatori. 
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
 
-    ///  Qaysi filialga tegishli bundle. 
+    ///  filialga tegishli Set. 
     [Column("branch_id")]
     public Guid BranchId { get; set; }
 
-    ///  Bundle nomi (sarlavha). 
+    ///  Set nomi (sarlavha). 
     [MaxLength(200)]
     [Column("title")]
     public string Title { get; set; } = string.Empty;
@@ -28,14 +29,9 @@ public class Bundle
     [Column("cover_image_id")]
     public Guid? CoverImageId { get; set; }
 
-    ///  Halol standartlariga mos kelishi flagi. 
-    [Column("is_halal")]
-    public bool IsHalal { get; set; } = true;
-
     ///  Teglar (masalan: Vegan, Gluten-free). 
-    [MaxLength(255)]
     [Column("dietary_tags")]
-    public string? DietaryTags { get; set; }
+    public DietaryTags DietaryTags { get; set; } = DietaryTags.None;
 
     ///  Asl umumiy narx. 
     [Column("original_price")]
@@ -63,13 +59,13 @@ public class Bundle
 
     ///  to'plam holati (ACTIVE, SOLD_OUT ...). 
     [Column("status")]
-    public ProductBundleStatus Status { get; set; } = ProductBundleStatus.Active;
+    public ProductSetStatus Status { get; set; } = ProductSetStatus.Active;
 
     ///  Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC). 
     [Column("expiration_date")]
     public DateTime? ExpirationDate { get; set; }
 
-    ///  Bundleni kiritgan xodim (employees.id). 
+    ///  Setni kiritgan xodim (employees.id). 
     [Column("created_by_employee_id")]
     public Guid CreatedByEmployeeId { get; set; }
 
@@ -87,17 +83,19 @@ public class Bundle
     [ForeignKey(nameof(BranchId))]
     public Branch? Branch { get; set; }
 
-    ///  Bundleni yaratgan employee. 
+    ///  Setni yaratgan employee. 
     [ForeignKey(nameof(CreatedByEmployeeId))]
     public Employee? CreatedByEmployee { get; set; }
 
-    public ICollection<BundleItem> BundleItems { get; set; } = new List<BundleItem>();
-    ///  Bundl buyurtmalari. 
+    public ICollection<SetItem> SetItems { get; set; } = new List<SetItem>();
+    ///  Set buyurtmalari. 
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    ///  Bundl biriktirilgan xodimlar. 
-    public ICollection<BundleAssignee> Assignees { get; set; } = new List<BundleAssignee>();
+    ///  Set biriktirilgan xodimlar. 
+    public ICollection<SetAssignee> Assignees { get; set; } = new List<SetAssignee>();
 
-    ///  Bundle rasmlari. 
+    ///  Set rasmlari. 
     public ICollection<FileModel> Images { get; set; } = new List<FileModel>();
+
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

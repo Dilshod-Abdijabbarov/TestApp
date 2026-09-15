@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    [Table("bundle_items")]
-    public class BundleItem
+    [Table("Set_items")]
+    public class SetItem
     {
         [Key]
         [Column("id")]
         public Guid Id { get; set; }
 
-        [Column("bundle_id")]
-        public Guid BundleId { get; set; }
+        [Column("set_id")]
+        public Guid SetId { get; set; }
 
         [Column("product_id")]
         public Guid ProductId { get; set; }
@@ -32,8 +32,8 @@ namespace Domain.Entities
         public decimal DiscountPrice { get; set; }
 
         // Navigation properties
-        [ForeignKey(nameof(BundleId))]
-        public Bundle? Bundle { get; set; }
+        [ForeignKey(nameof(SetId))]
+        public Set? Set { get; set; }
 
         [ForeignKey(nameof(ProductId))]
         public Product? Product { get; set; }
