@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,13 +8,8 @@ namespace SaveEat.Domain.Entities;
 /// Mijozlar tomonidan qoldirilgan sharhlar va baholar.
 /// Har bir sharh buyurtma bilan bog'langan va filialga tegishli bo'ladi.
 [Table("branch_reviews")]
-public class BranchReview
+public class BranchReview : BaseEntity
 {
-    ///  Sharh UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Qaysi buyurtma uchun qoldirilgan. 
     [Column("order_id")]
     public Guid OrderId { get; set; }
@@ -50,10 +46,6 @@ public class BranchReview
     ///  Javob berilgan vaqt (agar mavjud bo'lsa). 
     [Column("replied_at")]
     public DateTime? RepliedAt { get; set; }
-
-    ///  Sharh yozilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
     ///  Tegishli buyurtma. 

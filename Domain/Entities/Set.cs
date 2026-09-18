@@ -8,7 +8,7 @@ namespace SaveEat.Domain.Entities;
 
 /// Mahsulot to'plami — chegirmaga qo'yilgan mahsulot paketlari.
 /// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
-[Table("Sets")]
+[Table("sets")]
 public class Set
 {
     ///  Set UUID identifikatori. 

@@ -6,7 +6,7 @@ namespace SaveEat.Domain.Entities;
 
 /// Setni olib chiqish uchun biriktirilgan xodim yozuvi.
 /// Qaysi xodim qaysi Setga javobgar ekanligini saqlaydi.
-[Table("Set_assignees")]
+[Table("set_assignees")]
 public class SetAssignee
 {
     ///  Yozuv UUID. 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,13 +9,8 @@ namespace SaveEat.Domain.Entities;
 /// companiya filial (branch) ma'lumotlari: manzil, telefon, GPS va reytinglar.
 /// Har bir filial o'z pickup punktiga ega bo'ladi.
 [Table("branches")]
-public class Branch
+public class Branch : BaseEntity
 {
-    ///  Filial UUID identifikatori. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Qaysi kompaniyaga tegishli ekanligi. 
     [Column("company_id")]
     public Guid CompanyId { get; set; }
@@ -57,10 +53,6 @@ public class Branch
     ///  Filial faol yoki yo'qligi. 
     [Column("is_active")]
     public bool IsActive { get; set; } = true;
-
-    ///  Qo'shilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     ///   filial yaratgan user idsi. 
     [Column("created_by")]

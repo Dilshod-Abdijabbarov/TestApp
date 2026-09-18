@@ -1,18 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Domain.Entities;
 using SaveEat.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveEat.Domain.Entities;
 
 /// Ushbu klass kompaniya haqida yuridik va biznes ma'lumotlarni saqlaydi.
 [Table("companies")]
-public class Company
+public class Company : BaseEntity
 {
-    ///  Kompaniyaning UUID identifikatori. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Brend nomi (jamoat ko'rsatish uchun). 
     [MaxLength(150)]
     [Column("brand_name")]
@@ -57,10 +53,6 @@ public class Company
     ///  Hamkor faolmi (savdoga ruxsat). 
     [Column("is_active")]
     public bool IsActive { get; set; } = true;
-
-    ///  Yaratilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     ///  Oxirgi tahrir vaqti (UTC). 
     [Column("updated_at")]

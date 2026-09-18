@@ -145,11 +145,7 @@ public class Order
     public bool IsAmountConsistent() => TotalAmount == PlatformFee + MerchantAmount;
     private static string GenerateCode()
     {
-        return GetRandomString(6);
-    }
-
-    private static string GetRandomString(int length)
-    {
+        int length = 6;
         string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         var result = new StringBuilder(length);
         using (var rng = RandomNumberGenerator.Create())

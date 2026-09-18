@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    [Table("Set_items")]
+    [Table("set_items")]
     public class SetItem
     {
         [Key]

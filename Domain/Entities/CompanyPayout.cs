@@ -1,4 +1,5 @@
-﻿using SaveEat.Domain.Enums;
+﻿using Domain.Entities;
+using SaveEat.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,14 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SaveEat.Domain.Entities;
 
 /// Bank orqali hisob-kitob reestri — do'konlarga o'tkazilgan/otkaziladigan to'lovlar haqida yozuv.
-[Table("merchant_payouts")]
-public class CompanyPayout
+[Table("company_payouts")]
+public class CompanyPayout : BaseEntity
 {
-    ///  Reestr yozuvi UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  filialga tegishli to'lov. 
     //BranchId
     [Column("branch_id")]
@@ -52,10 +48,6 @@ public class CompanyPayout
     ///  To'lov qayta ishlangan vaqt (UTC) — agar mavjud bo'lsa. 
     [Column("processed_at")]
     public DateTime? ProcessedAt { get; set; }
-
-    ///  Reestr yozuvi yaratildi (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation
     ///  Branch. 
