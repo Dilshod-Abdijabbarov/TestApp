@@ -11,5 +11,5 @@ public class Cart : BaseEntity
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 
-    public ICollection<CartItem> Items { get; set; } = new List<CartItem>();
+    public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 }

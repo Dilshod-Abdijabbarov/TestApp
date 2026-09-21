@@ -16,7 +16,10 @@ namespace Domain.Entities
         [Column("set_id")]
         public Guid? SetId { get; set; }
 
+        [Column("quantity")]
         public int Quantity { get; set; } // Ushbu set yoki product dan nechta buyurtma qilingani
+
+        [Column("price_at_purchase")]
         public decimal PriceAtPurchase { get; set; } // Buyurtma berilgan vaqtdagi narx
 
 

@@ -37,38 +37,46 @@ public class SaveEatDbContext : DbContext
         "CK_OrderItem_ProductOrSet",
         "(product_id IS NOT NULL AND set_id IS NULL) OR (product_id IS NULL AND set_id IS NOT NULL)");
 
+
+        // Yo Product, yo Set — ikkalasi bir vaqtda bo'lmasin, ikkalasi ham bo'sh bo'lmasin
+        modelBuilder.Entity<Favorite>()
+            .HasCheckConstraint(
+                "CK_Favorite_ProductOrSet",
+                "(product_id IS NOT NULL AND set_id IS NULL) OR (product_id IS NULL AND set_id IS NOT NULL)"
+            );
+
+        // Bitta foydalanuvchi bitta mahsulotni faqat bir marta yoqtira olsin (dublikat oldini olish)
+        modelBuilder.Entity<Favorite>()
+            .HasIndex(f => new { f.UserId, f.ProductId })
+            .IsUnique()
+            .HasFilter("product_id IS NOT NULL");
+
+        modelBuilder.Entity<Favorite>()
+            .HasIndex(f => new { f.UserId, f.SetId })
+            .IsUnique()
+            .HasFilter("set_id IS NOT NULL");
+
+        // Delete behavior
+        modelBuilder.Entity<Favorite>()
+            .HasOne(f => f.User)
+            .WithMany()
+            .HasForeignKey(f => f.UserId)
+            .OnDelete(DeleteBehavior.Cascade);   // User o'chsa, sevimlilari ham o'chsin
+
+        modelBuilder.Entity<Favorite>()
+            .HasOne(f => f.Product)
+            .WithMany()
+            .HasForeignKey(f => f.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);   // Product o'chsa, sevimlidan ham o'chsin
+
+        modelBuilder.Entity<Favorite>()
+            .HasOne(f => f.Set)
+            .WithMany()
+            .HasForeignKey(f => f.SetId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         #region  Sequential GUID  vaqtga asoslangan, ya’ni har keyingi yaratilgani oldingisidan kattaroq bo‘lgan GUID yaratadi.
-        modelBuilder.Entity<Company>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<Branch>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<EmployeeInvite>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<Branch>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<CompanyPayout>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<Order>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<Payment>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<BranchReview>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<Basket>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<FileModel>()
-            .Property(e => e.Id)
-            .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
-        modelBuilder.Entity<User>()
+        modelBuilder.Entity<BaseEntity>()
             .Property(e => e.Id)
             .HasValueGenerator<Microsoft.EntityFrameworkCore.ValueGeneration.SequentialGuidValueGenerator>();
         #endregion

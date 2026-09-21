@@ -36,10 +36,6 @@ public class Order : BaseEntity
     [Column("scanned_by_employee_id")] 
     public Guid? ScannedByEmployeeId { get; set; }
 
-    ///  productlar soni. 
-    [Column("quantity")]
-    public int Quantity { get; set; } = 1;
-
     ///  Mijoz to'lagan umumiy summa. 
     [Column("total_amount")]
     public decimal TotalAmount { get; set; }
