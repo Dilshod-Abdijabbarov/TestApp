@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using SaveEat.Domain.Entities;
 
 namespace Infrastructure.DbContexts;
@@ -19,14 +20,22 @@ public class SaveEatDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<BranchReview> BranchReviews { get; set; }
-    public DbSet<Basket> Baskets { get; set; }
+    public DbSet<Set> Sets { get; set; }
     public DbSet<FileModel> FileModels { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<BasketAssignee> BasketAssignees { get; set; }
+    public DbSet<SetAssignee> SetAssignees { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<CartItem> CartItems { get; set; }
+    public DbSet<OrderItemProduct> OrderItemProducts { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+
+        modelBuilder.Entity<OrderItem>()
+        .HasCheckConstraint(
+        "CK_OrderItem_ProductOrSet",
+        "(product_id IS NOT NULL AND set_id IS NULL) OR (product_id IS NULL AND set_id IS NOT NULL)");
 
         #region  Sequential GUID  vaqtga asoslangan, ya’ni har keyingi yaratilgani oldingisidan kattaroq bo‘lgan GUID yaratadi.
         modelBuilder.Entity<Company>()

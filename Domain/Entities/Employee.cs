@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
@@ -7,13 +8,8 @@ namespace SaveEat.Domain.Entities;
 /// Do'kon xodimi (employee) — asl foydalanuvchi profiliga bog'langan,
 /// filial yoki tarmoq menejeri bo'lishi mumkin (OWNER/MANAGER/CASHIER).
 [Table("employees")]
-public class Employee
+public class Employee : BaseEntity
 {
-    ///  Xodim yozuvi UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Asosiy foydalanuvchi profili identifikatori (users.id). 
     [Column("user_id")]
     public Guid UserId { get; set; }
@@ -33,10 +29,6 @@ public class Employee
     ///  Xodim faol yoki emas flagi. 
     [Column("is_active")]
     public bool IsActive { get; set; } = true;
-
-    ///  Yozuv yaratildi (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
     ///  Tegishli foydalanuvchi. 

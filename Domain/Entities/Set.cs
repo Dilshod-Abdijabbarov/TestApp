@@ -9,13 +9,8 @@ namespace SaveEat.Domain.Entities;
 /// Mahsulot to'plami — chegirmaga qo'yilgan mahsulot paketlari.
 /// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
 [Table("sets")]
-public class Set
+public class Set : BaseEntity
 {
-    ///  Set UUID identifikatori. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  filialga tegishli Set. 
     [Column("branch_id")]
     public Guid BranchId { get; set; }
@@ -73,10 +68,6 @@ public class Set
     [ConcurrencyCheck]
     [Column("version")]
     public int Version { get; set; } = 0;
-
-    ///  Yaratilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
     ///  Tegishli filial. 

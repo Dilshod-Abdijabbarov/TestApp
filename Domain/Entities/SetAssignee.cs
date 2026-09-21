@@ -1,19 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 
 namespace SaveEat.Domain.Entities;
 
 /// Setni olib chiqish uchun biriktirilgan xodim yozuvi.
 /// Qaysi xodim qaysi Setga javobgar ekanligini saqlaydi.
 [Table("set_assignees")]
-public class SetAssignee
+public class SetAssignee : BaseEntity
 {
-    ///  Yozuv UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Biriktirilgan Set ID. 
     [Column("set_id")]
     public Guid SetId { get; set; }

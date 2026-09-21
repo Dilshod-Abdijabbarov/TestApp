@@ -5,12 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain.Entities
 {
     [Table("set_items")]
-    public class SetItem
+    public class SetItem : BaseEntity
     {
-        [Key]
-        [Column("id")]
-        public Guid Id { get; set; }
-
         [Column("set_id")]
         public Guid SetId { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
@@ -8,13 +9,8 @@ namespace SaveEat.Domain.Entities;
 /// Employee uchun taklif havolalari (invites) — deep-link token orqali yangi xodimlarni taklif qilish.
 /// Havola muddati, ishlatilganligi va rol ma'lumotlarini saqlaydi.
 [Table("employee_invites")]
-public class EmployeeInvite
+public class EmployeeInvite : BaseEntity
 {
-    ///  Taklif yozuvi UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Qaysi Kompaniya taklif qiladi. 
     [Column("company_id")]
     public Guid CompanyId { get; set; }
@@ -43,10 +39,6 @@ public class EmployeeInvite
     ///  Havolani kim ishlatdi (agar ishlatilgan bo'lsa). 
     [Column("used_by_user_id")]
     public Guid? UsedByUserId { get; set; }
-
-    ///  Yaratilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
     ///  Taklif qilgan Companiya. 

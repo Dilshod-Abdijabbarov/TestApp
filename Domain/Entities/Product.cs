@@ -6,13 +6,8 @@ using SaveEat.Domain.Enums;
 namespace Domain.Entities;
 
 [Table("products")]
-public class Product
+public class Product : BaseEntity
 {
-    ///  product UUID identifikatori. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Qaysi filialga tegishli product. 
     [Column("branch_id")]
     public Guid BranchId { get; set; }
@@ -62,10 +57,6 @@ public class Product
     ///  product kiritgan xodim (employees.id). 
     [Column("created_by_user_id")]
     public Guid CreatedByUserId { get; set; }
-
-    ///  Yaratilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation properties
     ///  Tegishli filial. 

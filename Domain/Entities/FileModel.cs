@@ -8,13 +8,8 @@ namespace SaveEat.Domain.Entities;
 
 /// Filelar 
 [Table("file_models")]
-public class FileModel
+public class FileModel : BaseEntity
 {
-    ///  Rasm yozuvi UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  File,Image,Video. 
     [Column("product_id")]
     public Guid ProductId { get; set; }
@@ -30,10 +25,6 @@ public class FileModel
     //yuklangan file turi
     [Column("file_type")]
     public FileType FileType { get; set; }
-
-    ///  Rasm yuklangan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // Navigation
     ///  Tegishli product. 

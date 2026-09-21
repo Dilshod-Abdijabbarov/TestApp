@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
@@ -8,13 +9,8 @@ namespace SaveEat.Domain.Entities;
 /// To'lovlar jurnali — har bir buyurtma bo'yicha bank yoki to'lov provayderi transaksiyalarini saqlaydi.
 /// Payload maydoni bankdan kelgan xom JSONni saqlash uchun ishlatiladi.
 [Table("payments")]
-public class Payment
+public class Payment : BaseEntity
 {
-    ///  To'lov UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Qaysi buyurtmaga tegishli (orders.id). 
     [Column("order_id")]
     public Guid OrderId { get; set; }
@@ -39,10 +35,6 @@ public class Payment
     ///  Bankdan kelgan xom JSON javob (postgres jsonb). 
     [Column("payload", TypeName = "jsonb")]
     public string? Payload { get; set; }
-
-    ///  Yaratilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     ///  Oxirgi yangilanish vaqti (UTC). 
     [Column("updated_at")]

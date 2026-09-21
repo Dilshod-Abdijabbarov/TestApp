@@ -12,17 +12,12 @@ namespace SaveEat.Domain.Entities;
 /// Buyurtma yozuvi — mijoz buyurtma bergan savatcha, miqdor, to'lov holati va tasdiqlash ma'lumotlari.
 /// Order ichida to'lov, kelish va tasdiqlashga oid maydonlar mavjud.
 [Table("orders")]
-public class Order
+public class Order : BaseEntity
 {
     public Order()
     {
         ClaimPin = GenerateCode();
     }
-
-    ///  Buyurtma UUID. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
 
     ///  O'qilishi oson buyurtma kodi. 
     [MaxLength(20)]
@@ -103,10 +98,6 @@ public class Order
     ///  Bekor qilingan vaqt. 
     [Column("cancelled_at")]
     public DateTime? CancelledAt { get; set; }
-
-    ///  Yaratilgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     // TUZATISH: string -> enum (kod) + alohida erkin izoh maydoni
     [Column("cancellation_reason_code")] 

@@ -1,19 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 
 namespace SaveEat.Domain.Entities;
 
 /// Hamkor do'konning balans va hamyon ma'lumotlari.
 /// AvailableBalance — yechib olinadigan pul, PendingBalance — ushlab turilgan summa.
 [Table("company_wallets")]
-public class CompanyWallet
+public class CompanyWallet : BaseEntity
 {
-    ///  Hamyon UUID identifikatori. 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; } = Guid.NewGuid();
-
     ///  filial id 
     [Column("branch_id")]
     public Guid BranchId { get; set; }

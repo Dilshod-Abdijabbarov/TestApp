@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities;
 using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
@@ -9,13 +10,8 @@ namespace SaveEat.Domain.Entities;
 /// Tizim foydalanuvchisi — Telegram orqali autentifikatsiya qilingan mijoz yoki admin.
 /// Ushbu klass foydalanuvchining shaxsiy ma'lumotlarini va holatini saqlaydi.
 [Table("users")]
-public class User
+public class User : BaseEntity
 {
-    ///  Ichki unikal identifikator (PK). 
-    [Key]
-    [Column("id")]
-    public Guid Id { get; set; }
-
     ///  Foydalanuvchining Telegram ID raqami (auth uchun). 
     [Column("telegram_id")]
     public long TelegramId { get; set; }
@@ -51,10 +47,6 @@ public class User
     ///  Foydalanuvchi bloklanganligi flagi. 
     [Column("is_blocked")]
     public bool IsBlocked { get; set; } = false;
-
-    ///  Ro'yxatdan o'tgan vaqt (UTC). 
-    [Column("created_at")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow.AddHours(5);
 
     ///  Profil oxirgi yangilangan vaqt (UTC). 
     [Column("updated_at")]
