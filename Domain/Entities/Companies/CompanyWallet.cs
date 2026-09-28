@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Companies;
 
 /// Hamkor do'konning balans va hamyon ma'lumotlari.
 /// AvailableBalance — yechib olinadigan pul, PendingBalance — ushlab turilgan summa.
@@ -33,5 +33,5 @@ public class CompanyWallet : BaseEntity
     // Navigation
     ///  Filial. 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 }

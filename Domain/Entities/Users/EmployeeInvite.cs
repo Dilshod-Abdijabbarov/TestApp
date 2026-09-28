@@ -2,9 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
+using Domain.Entities.Companies;
 using SaveEat.Domain.Enums;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Users;
 
 /// Employee uchun taklif havolalari (invites) — deep-link token orqali yangi xodimlarni taklif qilish.
 /// Havola muddati, ishlatilganligi va rol ma'lumotlarini saqlaydi.
@@ -17,7 +18,7 @@ public class EmployeeInvite : BaseEntity
 
     ///  Agar kerak bo'lsa, filialga bog'lash. 
     [Column("branch_id")]
-    public Guid? BranchId { get; set; }
+    public Guid BranchId { get; set; }
 
     ///  Taklif qilingan roli. 
     [Column("role")]
@@ -38,23 +39,23 @@ public class EmployeeInvite : BaseEntity
 
     ///  Havolani kim ishlatdi (agar ishlatilgan bo'lsa). 
     [Column("used_by_user_id")]
-    public Guid? UsedByUserId { get; set; }
+    public Guid UsedByUserId { get; set; }
 
     // Navigation properties
     ///  Taklif qilgan Companiya. 
     [ForeignKey(nameof(CompanyId))]
-    public Company? Company { get; set; }
+    public Company Company { get; set; }
 
     ///  Taklif qilgan filial (agar mavjud bo'lsa). 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 
     ///  Taklifni yaratgan user. 
     [ForeignKey(nameof(CreatedByUserId))]
-    public User? CreatedByUser { get; set; }
+    public User CreatedByUser { get; set; }
 
     ///  Taklifni ishlatgan user (agar ishlatilgan bo'lsa). 
     [ForeignKey(nameof(UsedByUserId))]
-    public User? UsedByUser { get; set; }
+    public User UsedByUser { get; set; }
 }
 

@@ -1,10 +1,13 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Orders;
+using Domain.Entities.Products;
+using Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Companies;
 
 /// companiya filial (branch) ma'lumotlari: manzil, telefon, GPS va reytinglar.
 /// Har bir filial o'z pickup punktiga ega bo'ladi.
@@ -27,7 +30,7 @@ public class Branch : BaseEntity
     ///  Mo'ljal yoki landmark. 
     [MaxLength(255)]
     [Column("landmark")]
-    public string? Landmark { get; set; }
+    public string Landmark { get; set; }
 
     ///  GPS kenglik (latitude). 
     [Column("latitude")]
@@ -61,7 +64,7 @@ public class Branch : BaseEntity
     // Navigation properties
     ///  Tegishli merchant. 
     [ForeignKey(nameof(CompanyId))]
-    public Company? Company { get; set; }
+    public Company Company { get; set; }
 
     ///  Filialga tegishli buyurtmalar. 
     public ICollection<Order> Orders { get; set; } = new List<Order>();

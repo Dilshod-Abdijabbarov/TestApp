@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Users;
 using SaveEat.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Companies;
 
 /// Ushbu klass kompaniya haqida yuridik va biznes ma'lumotlarni saqlaydi.
 [Table("companies")]
@@ -17,22 +17,22 @@ public class Company : BaseEntity
     ///  Yuridik nom (shartnoma maqsadlari uchun). 
     [MaxLength(255)]
     [Column("legal_name")]
-    public string? LegalName { get; set; }
+    public string LegalName { get; set; }
 
     ///  STIR / INN raqami. 
     [MaxLength(20)]
     [Column("tin_inn")]
-    public string? TinInn { get; set; }
+    public string TinInn { get; set; }
 
     ///  Bank hisobraqami (to'lovlar uchun). 
     [MaxLength(50)]
     [Column("bank_account")]
-    public string? BankAccount { get; set; }
+    public string BankAccount { get; set; }
 
     ///  Bank MFO kodi. 
     [MaxLength(10)]
     [Column("mfo_bank_code")]
-    public string? MfoBankCode { get; set; }
+    public string MfoBankCode { get; set; }
 
     ///  Asosiy toifa (bag category). 
     [Column("category")]
@@ -40,7 +40,7 @@ public class Company : BaseEntity
 
     ///  Logo yoki brend rasmi URL. 
     [Column("logo_url")]
-    public string? LogoUrl { get; set; }
+    public string LogoUrl { get; set; }
 
     ///  Platforma komissiya foizi (decimal). 
     [Column("commission_rate")]
@@ -56,14 +56,14 @@ public class Company : BaseEntity
 
     ///  Oxirgi tahrir vaqti (UTC). 
     [Column("updated_at")]
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
     ///   Kompaniyani yaratgan user idsi. 
     [Column("created_by")]
     public Guid CreatedBy { get; set; }
 
     ///  Companiya hamyoni. 
-    public CompanyWallet? Wallet { get; set; }
+    public CompanyWallet Wallet { get; set; }
 
     // Navigation properties
     ///  Hamkor filiallar. 

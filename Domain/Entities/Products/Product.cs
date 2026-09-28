@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities.Companies;
+using Domain.Entities.Users;
 using SaveEat.Domain.Entities;
 using SaveEat.Domain.Enums;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Products;
 
 [Table("products")]
 public class Product : BaseEntity
@@ -27,11 +29,11 @@ public class Product : BaseEntity
 
     ///  Tavsif va allergenlar haqida matn. 
     [Column("description")]
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     ///  Asosiy muqova rasmi id. 
     [Column("cover_image_id")]
-    public Guid? CoverImageId { get; set; }
+    public Guid CoverImageId { get; set; }
 
     ///  Halol standartlariga mos kelishi flagi. 
     [Column("is_halal")]
@@ -40,7 +42,7 @@ public class Product : BaseEntity
     ///  Teglar (masalan: Vegan, Gluten-free). 
     [MaxLength(255)]
     [Column("dietary_tags")]
-    public string? DietaryTags { get; set; }
+    public string DietaryTags { get; set; }
 
     ///  Asl umumiy narx. 
     [Column("original_price")]
@@ -61,11 +63,11 @@ public class Product : BaseEntity
     // Navigation properties
     ///  Tegishli filial. 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 
     ///  product yaratgan employee. 
     [ForeignKey(nameof(CreatedByUserId))]
-    public Employee? CreatedByEmployee { get; set; }
+    public Employee CreatedByEmployee { get; set; }
 
     ///  rasmlari,Videolar,filellar. 
     public ICollection<FileModel> FileModels { get; set; } = new List<FileModel>();

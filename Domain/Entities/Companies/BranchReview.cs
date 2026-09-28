@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using System;
+﻿using Domain.Entities.Orders;
+using Domain.Entities.Users;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Companies;
 
 /// Mijozlar tomonidan qoldirilgan sharhlar va baholar.
 /// Har bir sharh buyurtma bilan bog'langan va filialga tegishli bo'ladi.
@@ -29,7 +29,7 @@ public class BranchReview : BaseEntity
 
     ///  Mijoz matnli fikri. 
     [Column("comment")]
-    public string? Comment { get; set; }
+    public string Comment { get; set; }
 
     ///  Sharh anonim bo'lib qoldiriladimi. 
     [Column("is_anonymous")]
@@ -37,29 +37,29 @@ public class BranchReview : BaseEntity
 
     ///  Do'kon admini tomonidan berilgan rasmiy javob. 
     [Column("reply_from_branch")]
-    public string? ReplyFromBranch { get; set; }
+    public string ReplyFromBranch { get; set; }
 
     //Sharhga javob bergan xodim/admin identifikatori(users.id yoki employees.id).
     [Column("replied_by_employee_id")]
-    public Guid? RepliedByEmployeeId { get; set; }
+    public Guid RepliedByEmployeeId { get; set; }
 
     ///  Javob berilgan vaqt (agar mavjud bo'lsa). 
     [Column("replied_at")]
-    public DateTime? RepliedAt { get; set; }
+    public DateTime RepliedAt { get; set; }
 
     // Navigation properties
     ///  Tegishli buyurtma. 
     [ForeignKey(nameof(OrderId))]
-    public Order? Order { get; set; }
+    public Order Order { get; set; }
 
     ///  Sharh yozgan user. 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public User User { get; set; }
 
     ///  Tegishli filial. 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 
     [ForeignKey(nameof(RepliedByEmployeeId))]
-    public Employee? RepliedByEmployee { get; set; }
+    public Employee RepliedByEmployee { get; set; }
 }

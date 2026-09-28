@@ -13,5 +13,8 @@ public enum CompanyUserRole
     Cashier = 2,
 
     /// Ofitsiant — buyurtmalarni qabul qilish va mijozlarga xizmat ko'rsatish.
-    Ofitsiant = 3, 
+    Ofitsiant = 3,
+
+    /// Yetkazib beruvchi — buyurtmalarni yetkazib berish.
+    Courier = 4,
 }

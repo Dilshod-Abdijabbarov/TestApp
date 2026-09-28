@@ -1,4 +1,9 @@
-﻿using Domain.Entities;
+﻿
+using Domain.Entities;
+using Domain.Entities.Companies;
+using Domain.Entities.Orders;
+using Domain.Entities.Products;
+using Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using SaveEat.Domain.Entities;
 

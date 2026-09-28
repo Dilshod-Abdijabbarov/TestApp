@@ -1,8 +1,7 @@
-﻿
-
+﻿using Domain.Entities.Products;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Orders;
 
 public class OrderItemProduct : BaseEntity
 {
@@ -24,8 +23,8 @@ public class OrderItemProduct : BaseEntity
 
     // Navigation properties
     [ForeignKey(nameof(OrderItemId))]
-    public OrderItem? OrderItem { get; set; }
+    public OrderItem OrderItem { get; set; }
 
     [ForeignKey(nameof(ProductId))]
-    public Product? Product { get; set; }
+    public Product Product { get; set; }
 }

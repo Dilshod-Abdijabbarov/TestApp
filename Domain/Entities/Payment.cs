@@ -1,8 +1,8 @@
-using System;
+using Domain.Entities;
+using Domain.Entities.Orders;
+using SaveEat.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Entities;
-using SaveEat.Domain.Enums;
 
 namespace SaveEat.Domain.Entities;
 

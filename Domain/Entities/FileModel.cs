@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
+using Domain.Entities.Products;
 using Domain.Enums;
 
 namespace SaveEat.Domain.Entities;

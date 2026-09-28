@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
+using Domain.Entities.Companies;
+using Domain.Entities.Orders;
 using SaveEat.Domain.Enums;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Users;
  
 /// Tizim foydalanuvchisi — Telegram orqali autentifikatsiya qilingan mijoz yoki admin.
 /// Ushbu klass foydalanuvchining shaxsiy ma'lumotlarini va holatini saqlaydi.
@@ -24,17 +26,17 @@ public class User : BaseEntity
     ///  Telegram profilidagi familiya. 
     [MaxLength(100)]
     [Column("last_name")]
-    public string? LastName { get; set; }
+    public string LastName { get; set; }
 
     ///  Telegram username (agar mavjud bo'lsa). 
     [MaxLength(100)]
     [Column("username")]
-    public string? Username { get; set; }
+    public string Username { get; set; }
 
     ///  Bog'lanish uchun telefon raqami. 
     [MaxLength(20)]
     [Column("phone_number")]
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     ///  Tizimdagi global rol (Client, Admin, ...). 
     [Column("role")]

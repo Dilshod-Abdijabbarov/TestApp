@@ -2,8 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
+using Domain.Entities.Users;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Products;
 
 /// Setni olib chiqish uchun biriktirilgan xodim yozuvi.
 /// Qaysi xodim qaysi Setga javobgar ekanligini saqlaydi.
@@ -25,10 +26,10 @@ public class SetAssignee : BaseEntity
     // Navigation properties
     ///  Tegishli product Set. 
     [ForeignKey(nameof(SetId))]
-    public Set? Set { get; set; }
+    public Set Set { get; set; }
 
     ///  Tegishli employee. 
     [ForeignKey(nameof(EmployeeId))]
-    public Employee? AssignedEmployee { get; set; }
+    public Employee AssignedEmployee { get; set; }
 }
 

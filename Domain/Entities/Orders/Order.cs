@@ -1,13 +1,13 @@
-using Domain.Entities;
-using Domain.Enums;
+using Domain.Entities.Companies;
+using Domain.Entities.Users;
+using SaveEat.Domain.Entities;
 using SaveEat.Domain.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Orders;
 
 /// Buyurtma yozuvi — mijoz buyurtma bergan savatcha, miqdor, to'lov holati va tasdiqlash ma'lumotlari.
 /// Order ichida to'lov, kelish va tasdiqlashga oid maydonlar mavjud.
@@ -34,7 +34,7 @@ public class Order : BaseEntity
 
     ///  QRni skaner qilgan xodim (agar skanerlangan bo'lsa). 
     [Column("scanned_by_employee_id")] 
-    public Guid? ScannedByEmployeeId { get; set; }
+    public Guid ScannedByEmployeeId { get; set; }
 
     ///  Mijoz to'lagan umumiy summa. 
     [Column("total_amount")]
@@ -54,7 +54,7 @@ public class Order : BaseEntity
 
     ///  Telegram orqali yuborilgan tasdiqlash xabari ID si. 
     [Column("telegram_confirmation_msg_id")]
-    public long? TelegramConfirmationMsgId { get; set; }
+    public long TelegramConfirmationMsgId { get; set; }
 
     ///  Tasdiqlash usuli (Telegram, PIN, avtomatik timeout). 
     [MaxLength(30)]
@@ -77,23 +77,23 @@ public class Order : BaseEntity
 
     ///  Mijoz kelgan vaqt (agar bildirgan bo'lsa). 
     [Column("arrived_at")]
-    public DateTime? ArrivedAt { get; set; }
+    public DateTime ArrivedAt { get; set; }
 
     ///  QR skanerlangan vaqt. 
     [Column("scanned_at")]
-    public DateTime? ScannedAt { get; set; }
+    public DateTime ScannedAt { get; set; }
 
     ///  Mijoz tasdiqlagan aniq vaqt. 
     [Column("client_confirmed_at")]
-    public DateTime? ClientConfirmedAt { get; set; }
+    public DateTime ClientConfirmedAt { get; set; }
 
     ///  Buyurtma yakunlangan vaqt. 
     [Column("completed_at")]
-    public DateTime? CompletedAt { get; set; }
+    public DateTime CompletedAt { get; set; }
 
     ///  Bekor qilingan vaqt. 
     [Column("cancelled_at")]
-    public DateTime? CancelledAt { get; set; }
+    public DateTime CancelledAt { get; set; }
 
     // TUZATISH: string -> enum (kod) + alohida erkin izoh maydoni
     [Column("cancellation_reason_code")] 
@@ -101,7 +101,7 @@ public class Order : BaseEntity
 
     /// TUZATISH: bekor qilish sababi uchun erkin izoh maydoni
     [Column("cancellation_note")]
-    public string? CancellationNote { get; set; }
+    public string CancellationNote { get; set; }
 
     ///  PIN orqali qo'lda tasdiqlash sababi. 
     [Column("override_reason")] 
@@ -110,21 +110,21 @@ public class Order : BaseEntity
     // Navigation properties
     ///  Buyurtma qilgan user. 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public User User { get; set; }
 
     ///  Pickup filiali. 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 
     ///  QRni skaner qilgan xodim. 
     [ForeignKey(nameof(ScannedByEmployeeId))]
-    public Employee? ScannedByEmployee { get; set; }
+    public Employee ScannedByEmployee { get; set; }
 
     ///  Buyurtma to'lov yozuvi. 
-    public Payment? Payment { get; set; }
+    public Payment Payment { get; set; }
 
     ///  Buyurtma tasnifi (sharh). 
-    public BranchReview? Review { get; set; }
+    public BranchReview Review { get; set; }
 
     public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 

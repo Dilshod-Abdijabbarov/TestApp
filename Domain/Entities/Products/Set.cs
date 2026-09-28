@@ -1,10 +1,13 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Companies;
+using Domain.Entities.Orders;
+using Domain.Entities.Users;
 using Domain.Enums;
+using SaveEat.Domain.Entities;
 using SaveEat.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Products;
 
 /// Mahsulot to'plami — chegirmaga qo'yilgan mahsulot paketlari.
 /// Narxi, miqdori, olinadigan oynasi va holati kabi biznes ma'lumotlarni saqlaydi.
@@ -22,7 +25,7 @@ public class Set : BaseEntity
 
     ///  Asosiy muqova rasmi id. 
     [Column("cover_image_id")]
-    public Guid? CoverImageId { get; set; }
+    public Guid CoverImageId { get; set; }
 
     ///  Teglar (masalan: Vegan, Gluten-free). 
     [Column("dietary_tags")]
@@ -58,7 +61,7 @@ public class Set : BaseEntity
 
     ///  Mahsulotning aniq yaroqlilik muddati tugash sanasi (UTC). 
     [Column("expiration_date")]
-    public DateTime? ExpirationDate { get; set; }
+    public DateTime ExpirationDate { get; set; }
 
     ///  Setni kiritgan xodim (employees.id). 
     [Column("created_by_employee_id")]
@@ -72,11 +75,11 @@ public class Set : BaseEntity
     // Navigation properties
     ///  Tegishli filial. 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 
     ///  Setni yaratgan employee. 
     [ForeignKey(nameof(CreatedByEmployeeId))]
-    public Employee? CreatedByEmployee { get; set; }
+    public Employee CreatedByEmployee { get; set; }
 
     public ICollection<SetItem> SetItems { get; set; } = new List<SetItem>();
     ///  Set buyurtmalari. 

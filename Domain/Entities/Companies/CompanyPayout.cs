@@ -1,10 +1,8 @@
-﻿using Domain.Entities;
-using SaveEat.Domain.Enums;
-using System;
+﻿using SaveEat.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Companies;
 
 /// Bank orqali hisob-kitob reestri — do'konlarga o'tkazilgan/otkaziladigan to'lovlar haqida yozuv.
 [Table("company_payouts")]
@@ -43,15 +41,15 @@ public class CompanyPayout : BaseEntity
 
     ///  To'lov topshirig'i fayli yoki URL. 
     [Column("payment_proof_url")]
-    public string? PaymentProofUrl { get; set; }
+    public string PaymentProofUrl { get; set; }
 
     ///  To'lov qayta ishlangan vaqt (UTC) — agar mavjud bo'lsa. 
     [Column("processed_at")]
-    public DateTime? ProcessedAt { get; set; }
+    public DateTime ProcessedAt { get; set; }
 
     // Navigation
     ///  Branch. 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 }
 

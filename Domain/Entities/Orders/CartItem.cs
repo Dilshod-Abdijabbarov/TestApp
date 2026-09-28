@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using SaveEat.Domain.Entities;
+using Domain.Entities.Products;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Orders;
 
 public class CartItem : BaseEntity
 {
@@ -10,21 +10,21 @@ public class CartItem : BaseEntity
 
     ///  Agar alohida mahsulot qo'shilsa. 
     [Column("product_id")]
-    public Guid? ProductId { get; set; }
+    public Guid ProductId { get; set; }
 
     ///  Agar Set qo'shilsa. 
     [Column("set_id")]
-    public Guid? SetId { get; set; }
+    public Guid SetId { get; set; }
 
     [Column("quantity")]
     public int Quantity { get; set; } = 1;
 
     [ForeignKey(nameof(CartId))]
-    public Cart? Cart { get; set; }
+    public Cart Cart { get; set; }
 
     [ForeignKey(nameof(ProductId))]
-    public Product? Product { get; set; }
+    public Product Product { get; set; }
 
     [ForeignKey(nameof(SetId))]
-    public Set? Set { get; set; }
+    public Set Set { get; set; }
 }

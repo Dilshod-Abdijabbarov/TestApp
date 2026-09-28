@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using SaveEat.Domain.Entities;
+using Domain.Entities.Users;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Orders;
 
 public class Cart : BaseEntity
 {
@@ -9,7 +9,7 @@ public class Cart : BaseEntity
     public Guid UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public User User { get; set; }
 
     public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 }

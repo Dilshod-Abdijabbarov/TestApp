@@ -1,8 +1,7 @@
-﻿using SaveEat.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities
+namespace Domain.Entities.Products
 {
     [Table("set_items")]
     public class SetItem : BaseEntity
@@ -29,10 +28,10 @@ namespace Domain.Entities
 
         // Navigation properties
         [ForeignKey(nameof(SetId))]
-        public Set? Set { get; set; }
+        public Set Set { get; set; }
 
         [ForeignKey(nameof(ProductId))]
-        public Product? Product { get; set; }
+        public Product Product { get; set; }
 
     }
 }

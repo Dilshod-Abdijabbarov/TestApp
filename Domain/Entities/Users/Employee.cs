@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Entities;
+﻿using Domain.Entities.Companies;
+using Domain.Entities.Orders;
+using Domain.Entities.Products;
 using SaveEat.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaveEat.Domain.Entities;
+namespace Domain.Entities.Users;
 
 /// Do'kon xodimi (employee) — asl foydalanuvchi profiliga bog'langan,
 /// filial yoki tarmoq menejeri bo'lishi mumkin (OWNER/MANAGER/CASHIER).
@@ -20,7 +21,7 @@ public class Employee : BaseEntity
 
     ///  Biriktirilgan filial (agar mavjud bo'lsa). 
     [Column("branch_id")]
-    public Guid? BranchId { get; set; }
+    public Guid BranchId { get; set; }
 
     ///  Xodim roli. 
     [Column("role")]
@@ -33,15 +34,15 @@ public class Employee : BaseEntity
     // Navigation properties
     ///  Tegishli foydalanuvchi. 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public User User { get; set; }
 
     ///  Tegishli merchant. 
     [ForeignKey(nameof(CompanyId))]
-    public Company? Company { get; set; }
+    public Company Company { get; set; }
 
     ///  Tegishli filial (agar mavjud bo'lsa). 
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public Branch Branch { get; set; }
 
     ///  Ushbu xodim yaratgan product Setlari. 
     public ICollection<Set> CreatedSets { get; set; } = new List<Set>();
